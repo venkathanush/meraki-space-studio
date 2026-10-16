@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- Primary Favicon Configuration -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+<link rel="shortcut icon" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+
+<!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{% block og_title %}Meraki Space Studio | Luxury Minimalist Interior Architecture{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.{% endblock %}">
+<meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meraki Space Studio">
+<meta name="twitter:description" content="Bespoke interior design and luxury spatial architecture.">
+<meta name="twitter:image" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                        'gold-dark': '#AA820A',
+                        dark: '#121212',
+                        'dark-card': '#1A1A1A',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.2/dist/photoswipe.css">
+    <script type="module">
+        import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.2/dist/photoswipe-lightbox.esm.js';
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#project-gallery',
+            children: 'a',
+            pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5.4.2/dist/photoswipe.esm.js')
+        });
+        lightbox.init();
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark text-gray-200 font-sans antialiased flex flex-col min-h-screen selection:bg-gold selection:text-black">
+
+<!-- Base Navigation Header (Mobile-Ready) -->
+<header class="w-full bg-white text-neutral-900 sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <a href="{% url 'home' %}">
+            <img src="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png" alt="Meraki Space Studio" class="h-10 w-auto">
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em] text-neutral-800">
+            <a href="{% url 'home' %}" class="hover:text-gold transition">Home</a>
+            <a href="{% url 'home' %}#about" class="hover:text-gold transition">About Us</a>
+            <a href="{% url 'home' %}#services" class="hover:text-gold transition">Services</a>
+            <a href="{% url 'project_list' %}" class="hover:text-gold transition">Portfolio</a>
+            <a href="{% url 'home' %}#contact" class="hover:text-gold transition">Consultation</a>
+        </nav>
+
+        <!-- Desktop CTA Button -->
+        <div class="hidden sm:flex items-center space-x-4">
+            <a href="{% url 'home' %}#contact" class="border border-gold text-gold hover:bg-gold hover:text-black transition px-5 py-2 text-xs uppercase tracking-widest font-semibold">
+                Book Inquiry
+            </a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" type="button" class="md:hidden text-neutral-900 focus:outline-none p-2" aria-label="Toggle Navigation">
+            <svg id="menu-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+    </div>
+
+    <!-- Mobile Slide-Down Menu Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-neutral-200 px-6 pt-4 pb-8 space-y-4 shadow-lg transition-all">
+        <a href="{% url 'home' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Home</a>
+        <a href="{% url 'home' %}#about" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">About Us</a>
+        <a href="{% url 'home' %}#services" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Services</a>
+        <a href="{% url 'project_list' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Portfolio</a>
+        <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Consultation</a>
+        
+        <div class="pt-2">
+            <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-center border border-gold bg-gold text-black px-5 py-3 text-xs uppercase tracking-widest font-semibold">
+                Book Inquiry
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- JavaScript to Toggle Mobile Navigation -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+        if (btn && menu) {
+            btn.addEventListener('click', function() {
+                menu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when any nav link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    menu.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                });
+            });
+        }
+    });
+</script>
+
+    <!-- Notification Toast Messages -->
+    {% if messages %}
+    <div class="fixed top-24 right-6 z-50 space-y-2">
+        {% for message in messages %}
+        <div class="bg-gold text-black font-medium px-6 py-3 rounded-sm shadow-xl text-sm flex items-center justify-between space-x-4">
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+<!-- Footer Section -->
+<footer class="bg-black text-gray-400 py-16 border-t border-white/10 text-xs tracking-wider">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+        
+        <!-- Brand Info -->
+        <div class="space-y-4 md:col-span-1">
+            <h3 class="text-white font-serif text-lg">Meraki Space Studio</h3>
+            <p class="font-light text-gray-400 leading-relaxed">
+                Designing with soul. Architectural clarity, emotive interiors, and bespoke luxury spatial design.
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="space-y-3">
+            <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Navigation</h4>
+            <a href="{% url 'home' %}" class="block hover:text-white transition">Home</a>
+            <a href="{% url 'home' %}#about" class="block hover:text-white transition">About Us</a>
+            <a href="{% url 'home' %}#services" class="block hover:text-white transition">Services</a>
+            <a href="{% url 'project_list' %}" class="block hover:text-white transition">Portfolio</a>
+            <a href="{% url 'home' %}#contact" class="block hover:text-white transition">Book Consultation</a>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="space-y-3">
+            <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Follow Studio</h4>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="block hover:text-white transition">Instagram</a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener" class="block hover:text-white transition">Pinterest</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="block hover:text-white transition">LinkedIn</a>
+            <a href="https://houzz.com" target="_blank" rel="noopener" class="block hover:text-white transition">Houzz</a>
+        </div>
+
+        <!-- Direct Contact -->
+        <div class="space-y-3">
+            <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Studio Inquiries</h4>
+            <p class="text-white font-light">merakispacestudio@gmail.com</p>
+            <p class="text-gray-400 font-light">+91 7675072525</p>
+            <p class="text-gray-500 font-light pt-2">Jubilee Hills, Hyderabad, India</p>
+        </div>
+
+    </div>
+
+    <!-- Copyright Bar -->
+    <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-500 text-[11px]">
+        <p>&copy; {% now "Y" %} Meraki Space Studio. All Rights Reserved.</p>
+        <p class="mt-2 md:mt-0 font-light">Crafted for Luxury Minimalist Interiors</p>
+    </div>
+</footer>
+
+<!-- Floating WhatsApp Direct Contact Button -->
+<a href="https://wa.me/917675072525?text=Hello%20Meraki%20Space%20Studio%2C%20I%20would%20like%20to%20inquire%20about%20an%20interior%20design%20project." 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl hover:scale-110 hover:bg-[#20ba5a] transition-all duration-300 flex items-center justify-center group"
+   aria-label="Chat on WhatsApp">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out text-xs font-semibold tracking-wider uppercase pl-0 group-hover:pl-2">
+        Chat With Us
+    </span>
+</a>
+
+</body>
+</html>
