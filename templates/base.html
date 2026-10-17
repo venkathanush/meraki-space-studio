@@ -5,28 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<!-- Primary Favicon Configuration -->
-<link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
-<link rel="shortcut icon" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
-
-<!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:title" content="{% block og_title %}Meraki Space Studio | Luxury Minimalist Interior Architecture{% endblock %}">
-<meta property="og:description" content="{% block og_description %}Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.{% endblock %}">
-<meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Meraki Space Studio">
-<meta name="twitter:description" content="Bespoke interior design and luxury spatial architecture.">
-<meta name="twitter:image" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
-    <!-- Favicon & Touch Icons -->
+    <!-- Primary Favicon & Touch Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+
+    <!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}Meraki Space Studio | Luxury Minimalist Interior Architecture{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Meraki Space Studio">
+    <meta name="twitter:description" content="Bespoke interior design and luxury spatial architecture.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -44,6 +41,7 @@
         }
     </script>
 
+    <!-- Photoswipe CSS & Module Setup -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.2/dist/photoswipe.css">
     <script type="module">
         import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.2/dist/photoswipe-lightbox.esm.js';
@@ -54,10 +52,28 @@
         });
         lightbox.init();
     </script>
-    <!-- Google Fonts -->
+
+    <!-- Google Fonts: Playfair Display (Editorial Serif) & Plus Jakarta Sans (Clean Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Global Luxury Typography & Warm Neutral Hover Overrides -->
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #121212;
+            color: #e5e5e5;
+        }
+        h1, h2, h3, h4, h5, h6, .font-serif {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.02em;
+        }
+        .luxury-hover:hover {
+            color: #D4AF37 !important;
+            border-color: rgba(212, 175, 55, 0.4) !important;
+        }
+    </style>
 </head>
 <body class="bg-dark text-gray-200 font-sans antialiased flex flex-col min-h-screen selection:bg-gold selection:text-black">
 
@@ -219,20 +235,21 @@
         Chat With Us
     </span>
 </a>
+
+<!-- Scroll Reveal Observer Script -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Animate only once when scrolled into view
+                observer.unobserve(entry.target);
             }
         });
     }, { 
-        threshold: 0.15 // Triggers when 15% of the element is visible
+        threshold: 0.15 
     });
 
-    // Target any element with the 'reveal' class
     document.querySelectorAll('.reveal').forEach(el => {
         observer.observe(el);
     });
