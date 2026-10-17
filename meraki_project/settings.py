@@ -13,6 +13,11 @@ DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't')
 # Read ALLOWED_HOSTS from environment
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
+# Trusted origins for secure form submissions on Render
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+]
+
 # Application definition
 INSTALLED_APPS = [
     'unfold',  # Must be before django.contrib.admin
