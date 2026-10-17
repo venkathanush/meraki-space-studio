@@ -1,30 +1,42 @@
 {% extends 'base.html' %}
 
-{% block title %}Portfolio Projects | Meraki Space Studio{% endblock %}
+{% block title %}Portfolio | Meraki Space Studio{% endblock %}
 
 {% block content %}
-<section class="pt-8 pb-20 max-w-7xl mx-auto px-6">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Portfolio Showcase</span>
-        <h1 class="text-4xl md:text-5xl font-serif text-white">Our Architecture & Interior Works</h1>
+
+<!-- Custom CSS for Smooth Filter Transitions -->
+<style>
+    .project-item {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+</style>
+
+<div class="py-24 max-w-7xl mx-auto px-6">
+    <!-- Page Header -->
+    <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Our Portfolio</span>
+        <h1 class="text-4xl md:text-5xl font-serif text-white">Curated Spaces</h1>
+        <p class="text-gray-400 font-light text-sm mt-4">Explore our complete collection of residential, commercial, and turnkey architectural projects.</p>
     </div>
 
-    <!-- Category Filter Bar -->
-    <div class="flex flex-wrap justify-center gap-4 mb-16">
-        <a href="{% url 'project_list' %}" class="px-5 py-2 text-xs uppercase tracking-widest border transition {% if not selected_category %}border-gold text-gold{% else %}border-white/10 text-gray-400 hover:border-white/30{% endif %}">
+    <!-- Interactive Category Filter Tabs -->
+    <div class="flex flex-wrap justify-center items-center gap-4 mb-16">
+        <button class="filter-btn active px-6 py-2.5 text-xs uppercase tracking-widest border border-gold bg-gold text-black transition duration-300" data-filter="all">
             All Works
-        </a>
-        {% for cat_key, cat_name in categories %}
-        <a href="?category={{ cat_key }}" class="px-5 py-2 text-xs uppercase tracking-widest border transition {% if selected_category == cat_key %}border-gold text-gold{% else %}border-white/10 text-gray-400 hover:border-white/30{% endif %}">
-            {{ cat_name }}
-        </a>
+        </button>
+        {% for key, label in categories %}
+        <button class="filter-btn px-6 py-2.5 text-xs uppercase tracking-widest border border-white/10 text-gray-300 hover:border-gold hover:text-white transition duration-300" data-filter="{{ key }}">
+            {{ label }}
+        </button>
         {% endfor %}
     </div>
 
-    <!-- Project Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Projects Grid -->
+    <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for project in projects %}
-        <a href="{% url 'project_detail' project.slug %}" class="group block bg-dark-card border border-white/5">
+        <a href="{% url 'project_detail' project.slug %}" 
+           class="project-item group block relative overflow-hidden bg-dark-card border border-white/5" 
+           data-category="{{ project.category }}">
             {% if project.featured_image %}
             <div class="aspect-[4/5] overflow-hidden">
                 <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -39,10 +51,52 @@
             </div>
         </a>
         {% empty %}
-        <div class="col-span-full text-center py-16 text-gray-500">
-            No projects found in this category.
+        <div class="col-span-full text-center py-16 text-gray-500 font-light">
+            No projects available at the moment.
         </div>
         {% endfor %}
     </div>
-</section>
+</div>
+
+<!-- Filtering JavaScript -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active button styling
+            filterButtons.forEach(btn => {
+                btn.classList.remove('bg-gold', 'border-gold', 'text-black');
+                btn.classList.add('border-white/10', 'text-gray-300');
+            });
+            button.classList.remove('border-white/10', 'text-gray-300');
+            button.classList.add('bg-gold', 'border-gold', 'text-black');
+
+            const filterValue = button.getAttribute('data-filter');
+
+            // Show/Hide projects based on selection
+            projectItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                
+                if (filterValue === 'all' || itemCategory === filterValue) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+});
+</script>
+
 {% endblock %}
