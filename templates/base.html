@@ -78,33 +78,33 @@
 </head>
 <body class="bg-cream text-neutral-800 font-sans antialiased flex flex-col min-h-screen selection:bg-gold selection:text-white">
 
-<!-- Base Floating Transparent Header (Blends directly into Hero / Pages) -->
-<header class="w-full absolute top-0 left-0 z-50 transition-all duration-300 bg-transparent border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+<!-- Base Navigation Header -->
+<header class="w-full bg-cream/90 backdrop-blur-md text-neutral-900 sticky top-0 z-50 border-b border-neutral-200/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         
         <!-- Logo -->
         <a href="{% url 'home' %}">
             <img src="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png" alt="Meraki Space Studio" class="h-10 w-auto">
         </a>
 
-        <!-- Desktop Nav Links (Crisp White Text for Hero Overlays) -->
-        <nav class="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em] text-white">
-            <a href="{% url 'home' %}" class="hover:text-gold transition duration-300">Home</a>
-            <a href="{% url 'home' %}#about" class="hover:text-gold transition duration-300">About Us</a>
-            <a href="{% url 'home' %}#services" class="hover:text-gold transition duration-300">Services</a>
-            <a href="{% url 'project_list' %}" class="hover:text-gold transition duration-300">Portfolio</a>
-            <a href="{% url 'home' %}#contact" class="hover:text-gold transition duration-300">Consultation</a>
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em] text-neutral-800">
+            <a href="{% url 'home' %}" class="hover:text-gold transition">Home</a>
+            <a href="{% url 'home' %}#about" class="hover:text-gold transition">About Us</a>
+            <a href="{% url 'home' %}#services" class="hover:text-gold transition">Services</a>
+            <a href="{% url 'project_list' %}" class="hover:text-gold transition">Portfolio</a>
+            <a href="{% url 'home' %}#contact" class="hover:text-gold transition">Consultation</a>
         </nav>
 
         <!-- Desktop CTA Button -->
         <div class="hidden sm:flex items-center space-x-4">
-            <a href="{% url 'home' %}#contact" class="border border-white/40 text-white hover:bg-gold hover:border-gold hover:text-black transition duration-300 px-5 py-2 text-xs uppercase tracking-widest font-semibold backdrop-blur-sm">
+            <a href="{% url 'home' %}#contact" class="border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition px-5 py-2 text-xs uppercase tracking-widest font-semibold">
                 Book Inquiry
             </a>
         </div>
 
         <!-- Mobile Hamburger Button -->
-        <button id="mobile-menu-btn" type="button" class="md:hidden text-white focus:outline-none p-2" aria-label="Toggle Navigation">
+        <button id="mobile-menu-btn" type="button" class="md:hidden text-neutral-900 focus:outline-none p-2" aria-label="Toggle Navigation">
             <svg id="menu-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
@@ -116,7 +116,7 @@
     </div>
 
     <!-- Mobile Slide-Down Menu Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-neutral-200 px-6 pt-4 pb-8 space-y-4 shadow-xl">
+    <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-neutral-200 px-6 pt-4 pb-8 space-y-4 shadow-lg transition-all">
         <a href="{% url 'home' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Home</a>
         <a href="{% url 'home' %}#about" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">About Us</a>
         <a href="{% url 'home' %}#services" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Services</a>
@@ -124,7 +124,7 @@
         <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Consultation</a>
         
         <div class="pt-2">
-            <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-center border border-gold bg-gold text-black px-5 py-3 text-xs uppercase tracking-widest font-semibold">
+            <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-center border border-neutral-900 bg-neutral-900 text-white px-5 py-3 text-xs uppercase tracking-widest font-semibold">
                 Book Inquiry
             </a>
         </div>
