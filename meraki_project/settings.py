@@ -5,13 +5,13 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Read SECRET_KEY from environment or fallback for local dev
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-meraki-space-studio-key')[cite: 2]
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-meraki-space-studio-key')
 
 # Read DEBUG status from environment (defaults to True locally, set to False in Render)
-DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't')[cite: 2]
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't')
 
 # Read ALLOWED_HOSTS from environment
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')[cite: 2]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -27,20 +27,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'core',
-][cite: 2]
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # REMOVED WhiteNoise middleware here because you are using Cloudinary for static files
+    # WhiteNoise removed since static files are handled by Cloudinary
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-][cite: 2]
+]
 
-ROOT_URLCONF = 'meraki_project.urls'[cite: 2]
+ROOT_URLCONF = 'meraki_project.urls'
 
 TEMPLATES = [
     {
@@ -56,9 +56,9 @@ TEMPLATES = [
             ],
         },
     },
-][cite: 2]
+]
 
-WSGI_APPLICATION = 'meraki_project.wsgi.application'[cite: 2]
+WSGI_APPLICATION = 'meraki_project.wsgi.application'
 
 # Database Configuration (Supabase PostgreSQL via Render env or SQLite locally)
 DATABASES = {
@@ -67,21 +67,21 @@ DATABASES = {
         conn_max_age=600,
         ssl_require=True
     )
-}[cite: 2]
+}
 
 # Cloudinary Media & Static Storage Settings (Pulls keys from Render environment variables)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', ''),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY', ''),
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', ''),
-}[cite: 2]
+}
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'[cite: 2]
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'[cite: 2]
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Added so collectstatic has a local staging directory
-MEDIA_URL = '/media/'[cite: 2]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
 
 # Django Unfold Dark Theme Configuration
 UNFOLD = {
@@ -118,10 +118,10 @@ UNFOLD = {
             },
         ],
     },
-}[cite: 2]
+}
 
-LANGUAGE_CODE = 'en-us'[cite: 2]
-TIME_ZONE = 'UTC'[cite: 2]
-USE_I18N = True[cite: 2]
-USE_TZ = True[cite: 2]
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'[cite: 2]
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
