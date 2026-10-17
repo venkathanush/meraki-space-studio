@@ -11,23 +11,23 @@
     <link rel="shortcut icon" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
 
-    <!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Meraki Space Studio">
-<meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:title" content="{% block og_title %}Meraki Space Studio | Luxury Minimalist Interior Architecture{% endblock %}">
-<meta property="og:description" content="{% block og_description %}Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.{% endblock %}">
+    <!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags (Hardcoded Logo) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Meraki Space Studio">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="Meraki Space Studio | Luxury Minimalist Interior Architecture">
+    <meta property="og:description" content="Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.">
+    <meta property="og:image" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <meta property="og:image:secure_url" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
 
-<!-- Meraki Logo for WhatsApp Preview -->
-<meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
-<meta property="og:image:secure_url" content="{% block og_image_secure %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
-<meta property="og:image:type" content="image/png">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Meraki Space Studio">
-<meta name="twitter:description" content="Bespoke interior design and luxury spatial architecture.">
-<meta name="twitter:image" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Meraki Space Studio">
+    <meta name="twitter:description" content="Bespoke interior design and luxury spatial architecture.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,11 +36,11 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: '#C19A6B',          /* Warm Bronze / Gold Accent */
+                        gold: '#C19A6B',          
                         'gold-dark': '#A68053',
-                        cream: '#FBF9F5',         /* Main Cream Background */
-                        'cream-card': '#F4EFEA',    /* Card Background Contrast */
-                        charcoal: '#1A1A1A',      /* Deep Dark Text */
+                        cream: '#FBF9F5',         
+                        'cream-card': '#F4EFEA',    
+                        charcoal: '#1A1A1A',      
                     }
                 }
             }
@@ -59,12 +59,11 @@
         lightbox.init();
     </script>
 
-    <!-- Google Fonts: Playfair Display (Editorial Serif) & Plus Jakarta Sans (Clean Body) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Global Luxury Cream Theme Typography & Styles -->
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -75,10 +74,6 @@
             font-family: 'Playfair Display', serif;
             letter-spacing: 0.01em;
         }
-        .luxury-hover:hover {
-            color: #C19A6B !important;
-            border-color: rgba(193, 154, 107, 0.4) !important;
-        }
     </style>
 </head>
 <body class="bg-cream text-neutral-800 font-sans antialiased flex flex-col min-h-screen selection:bg-gold selection:text-white">
@@ -86,13 +81,10 @@
 <!-- Base Navigation Header -->
 <header class="w-full bg-cream/90 backdrop-blur-md text-neutral-900 sticky top-0 z-50 border-b border-neutral-200/60 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        
-        <!-- Logo -->
         <a href="{% url 'home' %}">
             <img src="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png" alt="Meraki Space Studio" class="h-10 w-auto">
         </a>
 
-        <!-- Desktop Nav Links -->
         <nav class="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em] text-neutral-800">
             <a href="{% url 'home' %}" class="hover:text-gold transition">Home</a>
             <a href="{% url 'home' %}#about" class="hover:text-gold transition">About Us</a>
@@ -101,14 +93,12 @@
             <a href="{% url 'home' %}#contact" class="hover:text-gold transition">Consultation</a>
         </nav>
 
-        <!-- Desktop CTA Button -->
         <div class="hidden sm:flex items-center space-x-4">
             <a href="{% url 'home' %}#contact" class="border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition px-5 py-2 text-xs uppercase tracking-widest font-semibold">
                 Book Inquiry
             </a>
         </div>
 
-        <!-- Mobile Hamburger Button -->
         <button id="mobile-menu-btn" type="button" class="md:hidden text-neutral-900 focus:outline-none p-2" aria-label="Toggle Navigation">
             <svg id="menu-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -117,10 +107,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
-
     </div>
 
-    <!-- Mobile Slide-Down Menu Drawer -->
     <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-neutral-200 px-6 pt-4 pb-8 space-y-4 shadow-lg transition-all">
         <a href="{% url 'home' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Home</a>
         <a href="{% url 'home' %}#about" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">About Us</a>
@@ -162,7 +150,6 @@
     });
 </script>
 
-    <!-- Notification Toast Messages -->
     {% if messages %}
     <div class="fixed top-24 right-6 z-50 space-y-2">
         {% for message in messages %}
@@ -173,16 +160,12 @@
     </div>
     {% endif %}
 
-    <!-- Main Content -->
     <main class="flex-grow">
         {% block content %}{% endblock %}
     </main>
 
-<!-- Footer Section -->
 <footer class="bg-[#F3EFEA] text-neutral-600 py-16 border-t border-neutral-300/60 text-xs tracking-wider">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-        
-        <!-- Brand Info -->
         <div class="space-y-4 md:col-span-1">
             <h3 class="text-neutral-900 font-serif text-lg">Meraki Space Studio</h3>
             <p class="font-light text-neutral-600 leading-relaxed">
@@ -190,7 +173,6 @@
             </p>
         </div>
 
-        <!-- Navigation Links -->
         <div class="space-y-3">
             <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Navigation</h4>
             <a href="{% url 'home' %}" class="block hover:text-neutral-900 transition">Home</a>
@@ -200,7 +182,6 @@
             <a href="{% url 'home' %}#contact" class="block hover:text-neutral-900 transition">Book Consultation</a>
         </div>
 
-        <!-- Social Media Links -->
         <div class="space-y-3">
             <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Follow Studio</h4>
             <a href="https://instagram.com" target="_blank" rel="noopener" class="block hover:text-neutral-900 transition">Instagram</a>
@@ -209,24 +190,20 @@
             <a href="https://houzz.com" target="_blank" rel="noopener" class="block hover:text-neutral-900 transition">Houzz</a>
         </div>
 
-        <!-- Direct Contact -->
         <div class="space-y-3">
             <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Studio Inquiries</h4>
             <p class="text-neutral-900 font-medium">merakispacestudio@gmail.com</p>
             <p class="text-neutral-700 font-light">+91 7675072525</p>
             <p class="text-neutral-500 font-light pt-2">Jubilee Hills, Hyderabad, India</p>
         </div>
-
     </div>
 
-    <!-- Copyright Bar -->
     <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-neutral-300/50 flex flex-col md:flex-row justify-between items-center text-neutral-500 text-[11px]">
         <p>&copy; {% now "Y" %} Meraki Space Studio. All Rights Reserved.</p>
         <p class="mt-2 md:mt-0 font-light">Crafted for Luxury Minimalist Interiors</p>
     </div>
 </footer>
 
-<!-- Floating WhatsApp Direct Contact Button -->
 <a href="https://wa.me/917675072525?text=Hello%20Meraki%20Space%20Studio%2C%20I%20would%20like%20to%20inquire%20about%20an%20interior%20design%20project." 
    target="_blank" 
    rel="noopener noreferrer"
