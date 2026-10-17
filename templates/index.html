@@ -286,6 +286,68 @@
     </div>
 </section>
 
+<!-- FAQ Accordion Section -->
+<section class="py-24 max-w-4xl mx-auto px-6 border-b border-white/5">
+    <div class="text-center mb-16 reveal">
+        <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Common Inquiries</span>
+        <h2 class="text-3xl md:text-5xl font-serif text-white">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="space-y-4">
+        <!-- FAQ Item 1 -->
+        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
+                <span class="text-white font-serif text-lg group-hover:text-gold transition">What is your typical project timeline?</span>
+                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
+            </button>
+            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
+                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                    Project timelines vary depending on scope and scale. A typical residential interior architecture or turnkey curation project ranges from 12 to 24 weeks from initial spatial planning through final styling and handover.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
+                <span class="text-white font-serif text-lg group-hover:text-gold transition">Do you handle complete turnkey execution?</span>
+                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
+            </button>
+            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
+                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                    Yes. We provide complete end-to-end turnkey execution, managing everything from 3D visualization, custom joinery fabrication, and procurement to site supervision and final accessory styling.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
+                <span class="text-white font-serif text-lg group-hover:text-gold transition">What regions or locations do you service?</span>
+                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
+            </button>
+            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
+                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                    While our primary studio is based in Jubilee Hills, Hyderabad, we undertake select residential and commercial architectural design projects across India and offer virtual design consulting worldwide.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
+                <span class="text-white font-serif text-lg group-hover:text-gold transition">How do we initiate a project with Meraki Space Studio?</span>
+                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
+            </button>
+            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
+                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                    You can begin by submitting your project details through our consultation form below or reaching out directly via WhatsApp. Our principal team will review your inquiry and schedule an initial discovery call.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Consultation Inquiry Form -->
 <section id="contact" class="py-24 max-w-4xl mx-auto px-6">
     <div class="text-center mb-12 reveal">
@@ -347,6 +409,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelectorAll('.reveal').forEach(el => {
         observer.observe(el);
+    });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+
+    faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const symbol = this.querySelector('.icon-symbol');
+            
+            // Close other open accordions (optional accordion behavior)
+            faqToggles.forEach(otherToggle => {
+                if (otherToggle !== this) {
+                    otherToggle.nextElementSibling.style.maxHeight = null;
+                    otherToggle.querySelector('.icon-symbol').textContent = '+';
+                }
+            });
+
+            // Toggle current accordion
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                symbol.textContent = '+';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                symbol.textContent = '-';
+            }
+        });
     });
 });
 </script>
