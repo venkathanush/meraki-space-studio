@@ -21,31 +21,38 @@
 </style>
 
 <!-- Hero Section -->
-<section class="relative min-h-[85vh] flex items-center justify-center bg-cream text-center px-6 overflow-hidden">
+<section class="relative min-h-[85vh] flex items-center justify-center bg-dark text-center px-6 overflow-hidden">
     
-    <!-- Hero Background Image -->
-    <div class="absolute inset-0 bg-cover bg-center opacity-60" 
+    <!-- Hero Background Image (Increased Opacity for Depth) -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-90" 
          style="background-image: url('{% if hero and hero.background_image %}{{ hero.background_image.url }}{% else %}https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000{% endif %}');">
     </div>
 
-    <!-- Soft Light Vignette Contrast -->
-    <div class="absolute inset-0 bg-[#FBF9F5]/40"></div>
+    <!-- Soft Dark Contrast Layer (Ensures Crisp Text Readability) -->
+    <div class="absolute inset-0 bg-black/45"></div>
 
-    <!-- Bottom Gradient Blend -->
-    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-cream via-cream/60 to-transparent z-10 pointer-events-none"></div>
+    <!-- Bottom Soft Cream Gradient (Seamless Blend into About Us Section) -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cream via-cream/70 to-transparent z-10 pointer-events-none"></div>
 
     <!-- Hero Content -->
     <div class="relative z-20 max-w-4xl pt-16 pb-20 reveal">
-        <span class="text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-4 block">
+        <!-- Gold Accent Tagline -->
+        <span class="text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-4 block drop-shadow-sm">
             {{ hero.tagline|default:"Designing With Soul" }}
         </span>
-        <h1 class="text-5xl md:text-7xl font-serif text-neutral-900 leading-tight font-light mb-6">
+        
+        <!-- Crisp White Serif Heading -->
+        <h1 class="text-5xl md:text-7xl font-serif text-white leading-tight font-light mb-6 drop-shadow-md">
             {{ hero.title|default:"Timeless Luxury & Minimalist Interior Architecture" }}
         </h1>
-        <p class="text-neutral-700 text-base md:text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+        
+        <!-- High-Contrast Light Subtitle -->
+        <p class="text-gray-200 text-base md:text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed drop-shadow-sm">
             {{ hero.subtitle|default:"We transform physical environments into emotive experiences, balancing aesthetic restraint with functional grandeur." }}
         </p>
-        <a href="#contact" class="bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-gold hover:text-black transition duration-300 inline-block shadow-lg">
+        
+        <!-- Luxury Call to Action Button -->
+        <a href="#contact" class="bg-gold text-black font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-white hover:text-black transition duration-300 inline-block shadow-2xl">
             {{ hero.button_text|default:"Start Your Consultation" }}
         </a>
     </div>
