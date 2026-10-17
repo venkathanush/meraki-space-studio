@@ -101,7 +101,7 @@ UNFOLD = {
     },
     "SIDEBAR": {
         "show_search": True,
-        "show_all_applications": True,
+        "show_all_applications": False,  # <--- Change this from True to False!
         "navigation": [
             {
                 "title": "Portfolio Management",
