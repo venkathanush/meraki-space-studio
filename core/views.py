@@ -61,7 +61,11 @@ def home(request):
 
                 api_instance.send_transac_email(send_smtp_email)
             except ApiException as e:
-                print(f"Brevo email sending failed: {e}")
+                from django.http import HttpResponse
+                return HttpResponse(f"BREVO API EXCEPTION DEBUG: {str(e)}", status=500)
+            except Exception as e:
+                from django.http import HttpResponse
+                return HttpResponse(f"GENERAL EXCEPTION DEBUG: {str(e)}", status=500)
 
             messages.success(request, "Thank you for reaching out! We will contact you shortly.")
             return redirect('home')
