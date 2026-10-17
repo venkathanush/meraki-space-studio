@@ -31,41 +31,39 @@ def home(request):
             )
             
             # 2. Send email notification via Brevo API
-            try:
-                configuration = sib_api_v3_sdk.Configuration()
-                configuration.api_key['api-key'] = os.environ.get('BREVO_API_KEY', '')
+            brevo_key = os.environ.get('BREVO_API_KEY', '')
+            if brevo_key:
+                try:
+                    configuration = sib_api_v3_sdk.Configuration()
+                    configuration.api_key['api-key'] = brevo_key
 
-                api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
-                
-                subject = f"New Consultation Inquiry from {name} - Meraki Space Studio"
-                html_content = f"""
-                <h3>New Project Inquiry Received</h3>
-                <p><b>Name:</b> {name}</p>
-                <p><b>Email:</b> {email}</p>
-                <p><b>Phone:</b> {phone or 'N/A'}</p>
-                <p><b>Project Type:</b> {project_type or 'N/A'}</p>
-                <p><b>Message:</b><br>{message}</p>
-                """
-                
-                sender = {"name": "Meraki Space Studio", "email": "merakispacestudio@gmail.com"}
-                to = [{"email": "merakispacestudio@gmail.com", "name": "Studio Admin"}]
-                reply_to = {"email": email, "name": name}
-                
-                send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
-                    to=to,
-                    reply_to=reply_to,
-                    sender=sender,
-                    subject=subject,
-                    html_content=html_content
-                )
+                    api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+                    
+                    subject = f"New Consultation Inquiry from {name} - Meraki Space Studio"
+                    html_content = f"""
+                    <h3>New Project Inquiry Received</h3>
+                    <p><b>Name:</b> {name}</p>
+                    <p><b>Email:</b> {email}</p>
+                    <p><b>Phone:</b> {phone or 'N/A'}</p>
+                    <p><b>Project Type:</b> {project_type or 'N/A'}</p>
+                    <p><b>Message:</b><br>{message}</p>
+                    """
+                    
+                    sender = {"name": "Meraki Space Studio", "email": "merakispacestudio@gmail.com"}
+                    to = [{"email": "merakispacestudio@gmail.com", "name": "Studio Admin"}]
+                    reply_to = {"email": email, "name": name}
+                    
+                    send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
+                        to=to,
+                        reply_to=reply_to,
+                        sender=sender,
+                        subject=subject,
+                        html_content=html_content
+                    )
 
-                api_instance.send_transac_email(send_smtp_email)
-            except ApiException as e:
-                from django.http import HttpResponse
-                return HttpResponse(f"BREVO API EXCEPTION DEBUG: {str(e)}", status=500)
-            except Exception as e:
-                from django.http import HttpResponse
-                return HttpResponse(f"GENERAL EXCEPTION DEBUG: {str(e)}", status=500)
+                    api_instance.send_transac_email(send_smtp_email)
+                except ApiException as e:
+                    print(f"Brevo email sending failed: {e}")
 
             messages.success(request, "Thank you for reaching out! We will contact you shortly.")
             return redirect('home')
