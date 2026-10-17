@@ -31,10 +31,11 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: '#D4AF37',
-                        'gold-dark': '#AA820A',
-                        dark: '#121212',
-                        'dark-card': '#1A1A1A',
+                        gold: '#C19A6B',          /* Warm Bronze / Gold Accent */
+                        'gold-dark': '#A68053',
+                        cream: '#FBF9F5',         /* Main Cream Background */
+                        'cream-card': '#F4EFEA',    /* Card Background Contrast */
+                        charcoal: '#1A1A1A',      /* Deep Dark Text */
                     }
                 }
             }
@@ -58,27 +59,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Global Luxury Typography & Warm Neutral Hover Overrides -->
+    <!-- Global Luxury Cream Theme Typography & Styles -->
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #121212;
-            color: #e5e5e5;
+            background-color: #FBF9F5;
+            color: #262626;
         }
         h1, h2, h3, h4, h5, h6, .font-serif {
             font-family: 'Playfair Display', serif;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
         }
         .luxury-hover:hover {
-            color: #D4AF37 !important;
-            border-color: rgba(212, 175, 55, 0.4) !important;
+            color: #C19A6B !important;
+            border-color: rgba(193, 154, 107, 0.4) !important;
         }
     </style>
 </head>
-<body class="bg-dark text-gray-200 font-sans antialiased flex flex-col min-h-screen selection:bg-gold selection:text-black">
+<body class="bg-cream text-neutral-800 font-sans antialiased flex flex-col min-h-screen selection:bg-gold selection:text-white">
 
-<!-- Base Navigation Header (Mobile-Ready) -->
-<header class="w-full bg-white text-neutral-900 sticky top-0 z-50 transition-all duration-300">
+<!-- Base Navigation Header -->
+<header class="w-full bg-cream/90 backdrop-blur-md text-neutral-900 sticky top-0 z-50 border-b border-neutral-200/60 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         
         <!-- Logo -->
@@ -97,7 +98,7 @@
 
         <!-- Desktop CTA Button -->
         <div class="hidden sm:flex items-center space-x-4">
-            <a href="{% url 'home' %}#contact" class="border border-gold text-gold hover:bg-gold hover:text-black transition px-5 py-2 text-xs uppercase tracking-widest font-semibold">
+            <a href="{% url 'home' %}#contact" class="border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition px-5 py-2 text-xs uppercase tracking-widest font-semibold">
                 Book Inquiry
             </a>
         </div>
@@ -115,22 +116,21 @@
     </div>
 
     <!-- Mobile Slide-Down Menu Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-neutral-200 px-6 pt-4 pb-8 space-y-4 shadow-lg transition-all">
-        <a href="{% url 'home' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Home</a>
-        <a href="{% url 'home' %}#about" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">About Us</a>
-        <a href="{% url 'home' %}#services" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Services</a>
-        <a href="{% url 'project_list' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Portfolio</a>
-        <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-100">Consultation</a>
+    <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-neutral-200 px-6 pt-4 pb-8 space-y-4 shadow-lg transition-all">
+        <a href="{% url 'home' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Home</a>
+        <a href="{% url 'home' %}#about" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">About Us</a>
+        <a href="{% url 'home' %}#services" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Services</a>
+        <a href="{% url 'project_list' %}" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Portfolio</a>
+        <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-xs uppercase tracking-[0.2em] font-medium text-neutral-800 hover:text-gold py-2 border-b border-neutral-200/60">Consultation</a>
         
         <div class="pt-2">
-            <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-center border border-gold bg-gold text-black px-5 py-3 text-xs uppercase tracking-widest font-semibold">
+            <a href="{% url 'home' %}#contact" class="mobile-nav-link block text-center border border-neutral-900 bg-neutral-900 text-white px-5 py-3 text-xs uppercase tracking-widest font-semibold">
                 Book Inquiry
             </a>
         </div>
     </div>
 </header>
 
-<!-- JavaScript to Toggle Mobile Navigation -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById('mobile-menu-btn');
@@ -146,7 +146,6 @@
                 iconClose.classList.toggle('hidden');
             });
 
-            // Close mobile menu when any nav link is clicked
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     menu.classList.add('hidden');
@@ -162,7 +161,7 @@
     {% if messages %}
     <div class="fixed top-24 right-6 z-50 space-y-2">
         {% for message in messages %}
-        <div class="bg-gold text-black font-medium px-6 py-3 rounded-sm shadow-xl text-sm flex items-center justify-between space-x-4">
+        <div class="bg-neutral-900 text-white font-medium px-6 py-3 rounded-sm shadow-xl text-sm flex items-center justify-between space-x-4">
             <span>{{ message }}</span>
         </div>
         {% endfor %}
@@ -175,13 +174,13 @@
     </main>
 
 <!-- Footer Section -->
-<footer class="bg-black text-gray-400 py-16 border-t border-white/10 text-xs tracking-wider">
+<footer class="bg-[#F3EFEA] text-neutral-600 py-16 border-t border-neutral-300/60 text-xs tracking-wider">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
         
         <!-- Brand Info -->
         <div class="space-y-4 md:col-span-1">
-            <h3 class="text-white font-serif text-lg">Meraki Space Studio</h3>
-            <p class="font-light text-gray-400 leading-relaxed">
+            <h3 class="text-neutral-900 font-serif text-lg">Meraki Space Studio</h3>
+            <p class="font-light text-neutral-600 leading-relaxed">
                 Designing with soul. Architectural clarity, emotive interiors, and bespoke luxury spatial design.
             </p>
         </div>
@@ -189,34 +188,34 @@
         <!-- Navigation Links -->
         <div class="space-y-3">
             <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Navigation</h4>
-            <a href="{% url 'home' %}" class="block hover:text-white transition">Home</a>
-            <a href="{% url 'home' %}#about" class="block hover:text-white transition">About Us</a>
-            <a href="{% url 'home' %}#services" class="block hover:text-white transition">Services</a>
-            <a href="{% url 'project_list' %}" class="block hover:text-white transition">Portfolio</a>
-            <a href="{% url 'home' %}#contact" class="block hover:text-white transition">Book Consultation</a>
+            <a href="{% url 'home' %}" class="block hover:text-neutral-900 transition">Home</a>
+            <a href="{% url 'home' %}#about" class="block hover:text-neutral-900 transition">About Us</a>
+            <a href="{% url 'home' %}#services" class="block hover:text-neutral-900 transition">Services</a>
+            <a href="{% url 'project_list' %}" class="block hover:text-neutral-900 transition">Portfolio</a>
+            <a href="{% url 'home' %}#contact" class="block hover:text-neutral-900 transition">Book Consultation</a>
         </div>
 
         <!-- Social Media Links -->
         <div class="space-y-3">
             <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Follow Studio</h4>
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="block hover:text-white transition">Instagram</a>
-            <a href="https://pinterest.com" target="_blank" rel="noopener" class="block hover:text-white transition">Pinterest</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="block hover:text-white transition">LinkedIn</a>
-            <a href="https://houzz.com" target="_blank" rel="noopener" class="block hover:text-white transition">Houzz</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="block hover:text-neutral-900 transition">Instagram</a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener" class="block hover:text-neutral-900 transition">Pinterest</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="block hover:text-neutral-900 transition">LinkedIn</a>
+            <a href="https://houzz.com" target="_blank" rel="noopener" class="block hover:text-neutral-900 transition">Houzz</a>
         </div>
 
         <!-- Direct Contact -->
         <div class="space-y-3">
             <h4 class="text-gold uppercase tracking-[0.2em] font-semibold mb-4">Studio Inquiries</h4>
-            <p class="text-white font-light">merakispacestudio@gmail.com</p>
-            <p class="text-gray-400 font-light">+91 7675072525</p>
-            <p class="text-gray-500 font-light pt-2">Jubilee Hills, Hyderabad, India</p>
+            <p class="text-neutral-900 font-medium">merakispacestudio@gmail.com</p>
+            <p class="text-neutral-700 font-light">+91 7675072525</p>
+            <p class="text-neutral-500 font-light pt-2">Jubilee Hills, Hyderabad, India</p>
         </div>
 
     </div>
 
     <!-- Copyright Bar -->
-    <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-500 text-[11px]">
+    <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-neutral-300/50 flex flex-col md:flex-row justify-between items-center text-neutral-500 text-[11px]">
         <p>&copy; {% now "Y" %} Meraki Space Studio. All Rights Reserved.</p>
         <p class="mt-2 md:mt-0 font-light">Crafted for Luxury Minimalist Interiors</p>
     </div>
@@ -236,7 +235,6 @@
     </span>
 </a>
 
-<!-- Scroll Reveal Observer Script -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const observer = new IntersectionObserver((entries, observer) => {
@@ -246,9 +244,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { 
-        threshold: 0.15 
-    });
+    }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal').forEach(el => {
         observer.observe(el);

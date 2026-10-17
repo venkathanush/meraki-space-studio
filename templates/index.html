@@ -20,32 +20,32 @@
     }
 </style>
 
-<!-- Hero Section (Clean Architectural Framed Edge) -->
-<section class="relative min-h-[85vh] flex items-center justify-center bg-dark text-center px-6 overflow-hidden">
+<!-- Hero Section -->
+<section class="relative min-h-[85vh] flex items-center justify-center bg-cream text-center px-6 overflow-hidden">
     
     <!-- Hero Background Image -->
-    <div class="absolute inset-0 bg-cover bg-center opacity-75" 
+    <div class="absolute inset-0 bg-cover bg-center opacity-60" 
          style="background-image: url('{% if hero and hero.background_image %}{{ hero.background_image.url }}{% else %}https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000{% endif %}');">
     </div>
 
-    <!-- Dark Contrast Vignette (Keeps hero text crisp & clear) -->
-    <div class="absolute inset-0 bg-black/40"></div>
+    <!-- Soft Light Vignette Contrast -->
+    <div class="absolute inset-0 bg-[#FBF9F5]/40"></div>
 
-    <!-- Bottom Dark Gradient ONLY (Blends softly into About Us Section) -->
-    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-dark via-dark/60 to-transparent z-10 pointer-events-none"></div>
+    <!-- Bottom Gradient Blend -->
+    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-cream via-cream/60 to-transparent z-10 pointer-events-none"></div>
 
     <!-- Hero Content -->
     <div class="relative z-20 max-w-4xl pt-16 pb-20 reveal">
         <span class="text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-4 block">
             {{ hero.tagline|default:"Designing With Soul" }}
         </span>
-        <h1 class="text-5xl md:text-7xl font-serif text-white leading-tight font-light mb-6">
+        <h1 class="text-5xl md:text-7xl font-serif text-neutral-900 leading-tight font-light mb-6">
             {{ hero.title|default:"Timeless Luxury & Minimalist Interior Architecture" }}
         </h1>
-        <p class="text-gray-300 text-base md:text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+        <p class="text-neutral-700 text-base md:text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed">
             {{ hero.subtitle|default:"We transform physical environments into emotive experiences, balancing aesthetic restraint with functional grandeur." }}
         </p>
-        <a href="#contact" class="bg-gold text-black font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-gold-dark transition duration-300 inline-block shadow-lg">
+        <a href="#contact" class="bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-gold hover:text-black transition duration-300 inline-block shadow-lg">
             {{ hero.button_text|default:"Start Your Consultation" }}
         </a>
     </div>
@@ -53,26 +53,26 @@
 </section>
 
 <!-- About Us & Design Philosophy Section -->
-<section id="about" class="py-24 bg-dark border-b border-white/5">
+<section id="about" class="py-24 bg-cream border-b border-neutral-200/60">
     <div class="max-w-7xl mx-auto px-6">
         
         <!-- Header / Ethos Statement -->
         <div class="max-w-3xl mb-20 reveal">
             <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-3">{{ about.subtitle|default:"Our Philosophy" }}</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-white leading-tight">
+            <h2 class="text-3xl md:text-5xl font-serif text-neutral-900 leading-tight">
                 {{ about.title|default:"Designing With Soul & Intentional Elegance" }}
             </h2>
-            <p class="text-gray-400 font-light text-base md:text-lg mt-6 leading-relaxed">
+            <p class="text-neutral-600 font-light text-base md:text-lg mt-6 leading-relaxed">
                 {{ about.description|default:"At Meraki Space Studio, we believe spaces should do more than simply shelter—they should evoke emotion and resonate with personal narrative." }}
             </p>
         </div>
 
-        <!-- 2-Column Grid: Brand Story + Lead Designer Spotlight -->
+        <!-- 2-Column Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <!-- Lead Designer Portrait / Studio Image -->
             <div class="lg:col-span-5 relative reveal">
-                <div class="aspect-[4/5] bg-dark-card border border-white/10 overflow-hidden relative group">
+                <div class="aspect-[4/5] bg-cream-card border border-neutral-300/80 overflow-hidden relative group shadow-sm">
                     {% if about and about.image %}
                     <img src="{{ about.image.url }}" 
                          alt="{{ about.founder_name }}" 
@@ -82,52 +82,52 @@
                          alt="Lead Interior Designer" 
                          class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition duration-700">
                     {% endif %}
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-6 left-6 right-6">
                         <span class="text-gold text-[10px] uppercase tracking-widest block mb-1">{{ about.founder_title|default:"Founder & Principal Designer" }}</span>
                         <h3 class="text-xl font-serif text-white">{{ about.founder_name|default:"Meraki Creative Team" }}</h3>
                     </div>
                 </div>
-                <div class="hidden sm:block absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-gold/40 -z-10"></div>
+                <div class="hidden sm:block absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-gold/60 -z-10"></div>
             </div>
 
             <!-- Story & Key Pillars -->
             <div class="lg:col-span-7 space-y-10 lg:pl-6 reveal">
                 
-                <div class="border-l border-gold/40 pl-6 space-y-2">
-                    <h3 class="text-xl font-serif text-white">Bespoke Curation</h3>
-                    <p class="text-sm text-gray-400 font-light leading-relaxed">
+                <div class="border-l border-gold/60 pl-6 space-y-2">
+                    <h3 class="text-xl font-serif text-neutral-900">Bespoke Curation</h3>
+                    <p class="text-sm text-neutral-600 font-light leading-relaxed">
                         We reject off-the-shelf concepts in favor of tailor-made architecture. Each residential, commercial, and turnkey project is built around custom joinery, hand-selected organic stones, and curated lighting hierarchies.
                     </p>
                 </div>
 
-                <div class="border-l border-gold/40 pl-6 space-y-2">
-                    <h3 class="text-xl font-serif text-white">Restrained Minimalism</h3>
-                    <p class="text-sm text-gray-400 font-light leading-relaxed">
+                <div class="border-l border-gold/60 pl-6 space-y-2">
+                    <h3 class="text-xl font-serif text-neutral-900">Restrained Minimalism</h3>
+                    <p class="text-sm text-neutral-600 font-light leading-relaxed">
                         Luxury is found in restraint. By eliminating noise and prioritizing spatial volume, soft textures, and natural daylight, we create environments that breathe tranquility and sophistication.
                     </p>
                 </div>
 
-                <div class="border-l border-gold/40 pl-6 space-y-2">
-                    <h3 class="text-xl font-serif text-white">Seamless Turnkey Execution</h3>
-                    <p class="text-sm text-gray-400 font-light leading-relaxed">
+                <div class="border-l border-gold/60 pl-6 space-y-2">
+                    <h3 class="text-xl font-serif text-neutral-900">Seamless Turnkey Execution</h3>
+                    <p class="text-sm text-neutral-600 font-light leading-relaxed">
                         From initial spatial planning and 3D visualization through site management and final styling, we deliver complete peace of mind with flawless execution standards.
                     </p>
                 </div>
 
                 <!-- Stats Bar -->
-                <div class="grid grid-cols-3 gap-6 pt-6 border-t border-white/10 text-center sm:text-left">
+                <div class="grid grid-cols-3 gap-6 pt-6 border-t border-neutral-300/60 text-center sm:text-left">
                     <div>
                         <span class="block font-serif text-3xl text-gold">50+</span>
-                        <span class="text-[10px] uppercase tracking-widest text-gray-400 mt-1 block">Spaces Crafted</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Spaces Crafted</span>
                     </div>
                     <div>
                         <span class="block font-serif text-3xl text-gold">100%</span>
-                        <span class="text-[10px] uppercase tracking-widest text-gray-400 mt-1 block">Bespoke Detail</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Bespoke Detail</span>
                     </div>
                     <div>
                         <span class="block font-serif text-3xl text-gold">Turnkey</span>
-                        <span class="text-[10px] uppercase tracking-widest text-gray-400 mt-1 block">Excellence</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Excellence</span>
                     </div>
                 </div>
 
@@ -143,29 +143,29 @@
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 reveal">
         <div>
             <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Selected Works</span>
-            <h2 class="text-3xl md:text-4xl font-serif text-white">Featured Portfolio</h2>
+            <h2 class="text-3xl md:text-4xl font-serif text-neutral-900">Featured Portfolio</h2>
         </div>
         <a href="{% url 'project_list' %}" class="mt-4 md:mt-0 text-xs uppercase tracking-widest text-gold hover:underline">Explore All Projects &rarr;</a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for project in featured_projects %}
-        <a href="{% url 'project_detail' project.slug %}" class="group block relative overflow-hidden bg-dark-card border border-white/5 reveal">
+        <a href="{% url 'project_detail' project.slug %}" class="group block relative overflow-hidden bg-cream-card border border-neutral-300/80 shadow-sm reveal">
             {% if project.featured_image %}
             <div class="aspect-[4/5] overflow-hidden">
                 <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             </div>
             {% else %}
-            <div class="aspect-[4/5] bg-neutral-800 flex items-center justify-center text-gray-500">No Image</div>
+            <div class="aspect-[4/5] bg-neutral-200 flex items-center justify-center text-neutral-500">No Image</div>
             {% endif %}
             <div class="p-6">
                 <span class="text-gold text-[10px] uppercase tracking-widest block mb-1">{{ project.get_category_display }}</span>
-                <h3 class="text-xl font-serif text-white group-hover:text-gold transition">{{ project.title }}</h3>
-                <p class="text-xs text-gray-400 mt-2">{{ project.location }}</p>
+                <h3 class="text-xl font-serif text-neutral-900 group-hover:text-gold transition">{{ project.title }}</h3>
+                <p class="text-xs text-neutral-500 mt-2">{{ project.location }}</p>
             </div>
         </a>
         {% empty %}
-        <div class="col-span-full text-center py-12 text-gray-500 font-light">
+        <div class="col-span-full text-center py-12 text-neutral-500 font-light">
             No featured projects yet. Add them in your admin panel!
         </div>
         {% endfor %}
@@ -173,51 +173,51 @@
 </section>
 
 <!-- Services Section -->
-<section id="services" class="py-24 bg-dark-card border-y border-white/5">
+<section id="services" class="py-24 bg-cream-card border-y border-neutral-200/60">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16 reveal">
             <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Our Expertise</span>
-            <h2 class="text-3xl md:text-4xl font-serif text-white">Interior Design Services</h2>
+            <h2 class="text-3xl md:text-4xl font-serif text-neutral-900">Interior Design Services</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {% for service in services %}
-            <div class="bg-dark border border-white/10 hover:border-gold/50 transition duration-500 overflow-hidden group reveal">
+            <div class="bg-cream border border-neutral-300/80 hover:border-gold/60 transition duration-500 overflow-hidden group reveal shadow-sm">
                 <!-- Service Image from Cloudinary -->
                 {% if service.image %}
                 <div class="aspect-[16/10] overflow-hidden relative">
                     <img src="{{ service.image.url }}" alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/60 via-transparent to-transparent opacity-80"></div>
                 </div>
                 {% endif %}
                 
                 <div class="p-8">
-                    <h3 class="text-xl font-serif text-white mb-4 group-hover:text-gold transition">{{ service.title }}</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-6 font-light">{{ service.short_description }}</p>
+                    <h3 class="text-xl font-serif text-neutral-900 mb-4 group-hover:text-gold transition">{{ service.title }}</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed mb-6 font-light">{{ service.short_description }}</p>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-full text-center py-8 text-gray-500">No services added yet.</div>
+            <div class="col-span-full text-center py-8 text-neutral-500">No services added yet.</div>
             {% endfor %}
         </div>
     </div>
 </section>
 
 <!-- Client Testimonials Section -->
-<section class="py-24 bg-dark border-b border-white/5">
+<section class="py-24 bg-cream border-b border-neutral-200/60">
     <div class="max-w-7xl mx-auto px-6">
         
         <!-- Section Header -->
         <div class="text-center max-w-2xl mx-auto mb-16 reveal">
             <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-3">Client Reflections</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-white">Words of Appreciation</h2>
+            <h2 class="text-3xl md:text-5xl font-serif text-neutral-900">Words of Appreciation</h2>
         </div>
 
         {% if testimonials %}
         <!-- Testimonials Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {% for review in testimonials %}
-            <div class="bg-dark-card border border-white/10 p-8 flex flex-col justify-between hover:border-gold/40 transition duration-500 reveal">
+            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between hover:border-gold/60 transition duration-500 reveal shadow-sm">
                 <div class="space-y-4">
                     <!-- Gold Stars -->
                     <div class="flex text-gold text-sm space-x-1">
@@ -226,14 +226,14 @@
                         {% endfor %}
                     </div>
                     <!-- Quote Text -->
-                    <p class="text-gray-300 font-light text-sm md:text-base leading-relaxed italic">
+                    <p class="text-neutral-700 font-light text-sm md:text-base leading-relaxed italic">
                         "{{ review.quote }}"
                     </p>
                 </div>
                 
                 <!-- Client Details -->
-                <div class="pt-6 mt-6 border-t border-white/5">
-                    <h3 class="text-white font-serif text-base font-medium">{{ review.client_name }}</h3>
+                <div class="pt-6 mt-6 border-t border-neutral-300/50">
+                    <h3 class="text-neutral-900 font-serif text-base font-medium">{{ review.client_name }}</h3>
                     <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">{{ review.role_or_location }}</span>
                 </div>
             </div>
@@ -242,41 +242,41 @@
         {% else %}
         <!-- Placeholder Fallback if database is empty -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-dark-card border border-white/10 p-8 flex flex-col justify-between reveal">
+            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between reveal shadow-sm">
                 <div class="space-y-4">
                     <div class="flex text-gold text-sm space-x-1">★★★★★</div>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed italic">
+                    <p class="text-neutral-700 font-light text-sm leading-relaxed italic">
                         "Meraki Space Studio transformed our villa into a sanctuary of understated elegance. Their attention to lighting and tactile materials is unmatched."
                     </p>
                 </div>
-                <div class="pt-6 mt-6 border-t border-white/5">
-                    <h3 class="text-white font-serif text-base">Ananya & Vikram</h3>
+                <div class="pt-6 mt-6 border-t border-neutral-300/50">
+                    <h3 class="text-neutral-900 font-serif text-base">Ananya & Vikram</h3>
                     <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">Private Villa, Jubilee Hills</span>
                 </div>
             </div>
 
-            <div class="bg-dark-card border border-white/10 p-8 flex flex-col justify-between reveal">
+            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between reveal shadow-sm">
                 <div class="space-y-4">
                     <div class="flex text-gold text-sm space-x-1">★★★★★</div>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed italic">
+                    <p class="text-neutral-700 font-light text-sm leading-relaxed italic">
                         "Flawless turnkey execution. They respected our timelines completely while delivering an interior that feels like a boutique gallery."
                     </p>
                 </div>
-                <div class="pt-6 mt-6 border-t border-white/5">
-                    <h3 class="text-white font-serif text-base">Rohan Mehta</h3>
+                <div class="pt-6 mt-6 border-t border-neutral-300/50">
+                    <h3 class="text-neutral-900 font-serif text-base">Rohan Mehta</h3>
                     <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">Penthouse Residence</span>
                 </div>
             </div>
 
-            <div class="bg-dark-card border border-white/10 p-8 flex flex-col justify-between reveal">
+            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between reveal shadow-sm">
                 <div class="space-y-4">
                     <div class="flex text-gold text-sm space-x-1">★★★★★</div>
-                    <p class="text-gray-300 font-light text-sm leading-relaxed italic">
+                    <p class="text-neutral-700 font-light text-sm leading-relaxed italic">
                         "The spatial harmony they achieved in our studio office space elevated our entire brand identity. Highly recommended."
                     </p>
                 </div>
-                <div class="pt-6 mt-6 border-t border-white/5">
-                    <h3 class="text-white font-serif text-base">Siddharth Rao</h3>
+                <div class="pt-6 mt-6 border-t border-neutral-300/50">
+                    <h3 class="text-neutral-900 font-serif text-base">Siddharth Rao</h3>
                     <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">Commercial Space</span>
                 </div>
             </div>
@@ -287,60 +287,60 @@
 </section>
 
 <!-- FAQ Accordion Section -->
-<section class="py-24 max-w-4xl mx-auto px-6 border-b border-white/5">
+<section class="py-24 max-w-4xl mx-auto px-6 border-b border-neutral-200/60">
     <div class="text-center mb-16 reveal">
         <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Common Inquiries</span>
-        <h2 class="text-3xl md:text-5xl font-serif text-white">Frequently Asked Questions</h2>
+        <h2 class="text-3xl md:text-5xl font-serif text-neutral-900">Frequently Asked Questions</h2>
     </div>
 
     <div class="space-y-4">
         <!-- FAQ Item 1 -->
-        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
             <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-white font-serif text-lg group-hover:text-gold transition">What is your typical project timeline?</span>
+                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">What is your typical project timeline?</span>
                 <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
             </button>
             <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
                     Project timelines vary depending on scope and scale. A typical residential interior architecture or turnkey curation project ranges from 12 to 24 weeks from initial spatial planning through final styling and handover.
                 </p>
             </div>
         </div>
 
         <!-- FAQ Item 2 -->
-        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
             <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-white font-serif text-lg group-hover:text-gold transition">Do you handle complete turnkey execution?</span>
+                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">Do you handle complete turnkey execution?</span>
                 <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
             </button>
             <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
                     Yes. We provide complete end-to-end turnkey execution, managing everything from 3D visualization, custom joinery fabrication, and procurement to site supervision and final accessory styling.
                 </p>
             </div>
         </div>
 
         <!-- FAQ Item 3 -->
-        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
             <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-white font-serif text-lg group-hover:text-gold transition">What regions or locations do you service?</span>
+                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">What regions or locations do you service?</span>
                 <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
             </button>
             <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
                     While our primary studio is based in Jubilee Hills, Hyderabad, we undertake select residential and commercial architectural design projects across India and offer virtual design consulting worldwide.
                 </p>
             </div>
         </div>
 
         <!-- FAQ Item 4 -->
-        <div class="border border-white/10 bg-dark-card reveal overflow-hidden transition-all duration-300">
+        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
             <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-white font-serif text-lg group-hover:text-gold transition">How do we initiate a project with Meraki Space Studio?</span>
+                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">How do we initiate a project with Meraki Space Studio?</span>
                 <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
             </button>
             <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-gray-400 font-light text-sm pb-6 leading-relaxed">
+                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
                     You can begin by submitting your project details through our consultation form below or reaching out directly via WhatsApp. Our principal team will review your inquiry and schedule an initial discovery call.
                 </p>
             </div>
@@ -352,30 +352,30 @@
 <section id="contact" class="py-24 max-w-4xl mx-auto px-6">
     <div class="text-center mb-12 reveal">
         <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Begin Your Journey</span>
-        <h2 class="text-3xl md:text-4xl font-serif text-white">Book an Interior Design Consultation</h2>
+        <h2 class="text-3xl md:text-4xl font-serif text-neutral-900">Book an Interior Design Consultation</h2>
     </div>
 
-    <form method="POST" class="space-y-6 bg-dark-card p-8 md:p-12 border border-white/10 reveal">
+    <form method="POST" class="space-y-6 bg-cream-card p-8 md:p-12 border border-neutral-300/80 shadow-sm reveal">
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Full Name *</label>
-                <input type="text" name="name" required class="w-full bg-dark border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-gold text-sm">
+                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Full Name *</label>
+                <input type="text" name="name" required class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
             </div>
             <div>
-                <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Email Address *</label>
-                <input type="email" name="email" required class="w-full bg-dark border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-gold text-sm">
+                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Email Address *</label>
+                <input type="email" name="email" required class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Phone Number</label>
-                <input type="text" name="phone" class="w-full bg-dark border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-gold text-sm">
+                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Phone Number</label>
+                <input type="text" name="phone" class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
             </div>
             <div>
-                <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Project Category</label>
-                <select name="project_type" class="w-full bg-dark border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-gold text-sm">
+                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Project Category</label>
+                <select name="project_type" class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
                     <option value="residential">Residential Interiors</option>
                     <option value="commercial">Commercial Interiors</option>
                     <option value="hospitality">Hospitality Projects</option>
@@ -385,11 +385,11 @@
         </div>
 
         <div>
-            <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Tell Us About Your Space *</label>
-            <textarea name="message" rows="5" required class="w-full bg-dark border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-gold text-sm"></textarea>
+            <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Tell Us About Your Space *</label>
+            <textarea name="message" rows="5" required class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm"></textarea>
         </div>
 
-        <button type="submit" class="w-full bg-gold text-black font-semibold uppercase tracking-widest text-xs py-4 hover:bg-gold-dark transition duration-300">
+        <button type="submit" class="w-full bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs py-4 hover:bg-gold hover:text-black transition duration-300 shadow-md">
             Submit Inquiry
         </button>
     </form>
@@ -413,6 +413,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<!-- FAQ Accordion Script -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const faqToggles = document.querySelectorAll('.faq-toggle');
@@ -422,7 +423,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const content = this.nextElementSibling;
             const symbol = this.querySelector('.icon-symbol');
             
-            // Close other open accordions (optional accordion behavior)
             faqToggles.forEach(otherToggle => {
                 if (otherToggle !== this) {
                     otherToggle.nextElementSibling.style.maxHeight = null;
@@ -430,7 +430,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
 
-            // Toggle current accordion
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
                 symbol.textContent = '+';
