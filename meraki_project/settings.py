@@ -101,13 +101,25 @@ UNFOLD = {
     },
     "SIDEBAR": {
         "show_search": True,
-        "show_all_applications": False,  # <--- Change this from True to False!
-        "navigation": [
+        "show_all_applications": False,
+        "navigation": lambda request: [
+            {
+                "title": "Navigation",
+                "items": [
+                    {
+                        "title": "Dashboard",
+                        "icon": "dashboard",
+                        "link": "/admin/",
+                    },
+                ],
+            },
             {
                 "title": "Portfolio Management",
                 "items": [
                     {"title": "Projects", "icon": "photo_library", "link": "/admin/core/project/"},
                     {"title": "Services", "icon": "design_services", "link": "/admin/core/service/"},
+                    {"title": "Hero Sections", "icon": "view_carousel", "link": "/admin/core/herosection/"},
+                    {"title": "About Sections", "icon": "info", "link": "/admin/core/aboutsection/"},
                 ],
             },
             {
@@ -117,10 +129,16 @@ UNFOLD = {
                     {"title": "Testimonials", "icon": "rate_review", "link": "/admin/core/testimonial/"},
                 ],
             },
+            {
+                "title": "Administration",
+                "items": [
+                    {"title": "Users", "icon": "group", "link": "/admin/auth/user/"},
+                    {"title": "Groups", "icon": "security", "link": "/admin/auth/group/"},
+                ],
+            },
         ],
     },
 }
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
