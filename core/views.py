@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
+from django.http import HttpResponse
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from .models import Service, Project, Inquiry, AboutSection, HeroSection, Testimonial
@@ -30,40 +31,47 @@ def home(request):
                 message=message
             )
             
-            # 2. Send email notification via Brevo API
-            brevo_key = os.environ.get('BREVO_API_KEY', '')
-            if brevo_key:
-                try:
-                    configuration = sib_api_v3_sdk.Configuration()
-                    configuration.api_key['api-key'] = brevo_key
+            # 2. Check API Key Presence
+            brevo_key = os.environ.get('BREVO_API_KEY', '').strip()
+            if not brevo_key:
+                return HttpResponse("DIAGNOSTIC ERROR: BREVO_API_KEY environment variable is missing or empty on Render!", status=500)
 
-                    api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
-                    
-                    subject = f"New Consultation Inquiry from {name} - Meraki Space Studio"
-                    html_content = f"""
-                    <h3>New Project Inquiry Received</h3>
-                    <p><b>Name:</b> {name}</p>
-                    <p><b>Email:</b> {email}</p>
-                    <p><b>Phone:</b> {phone or 'N/A'}</p>
-                    <p><b>Project Type:</b> {project_type or 'N/A'}</p>
-                    <p><b>Message:</b><br>{message}</p>
-                    """
-                    
-                    sender = {"name": "Meraki Space Studio", "email": "merakispacestudio@gmail.com"}
-                    to = [{"email": "merakispacestudio@gmail.com", "name": "Studio Admin"}]
-                    reply_to = {"email": email, "name": name}
-                    
-                    send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
-                        to=to,
-                        reply_to=reply_to,
-                        sender=sender,
-                        subject=subject,
-                        html_content=html_content
-                    )
+            # 3. Trigger Brevo Email API
+            try:
+                configuration = sib_api_v3_sdk.Configuration()
+                configuration.api_key['api-key'] = brevo_key
 
-                    api_instance.send_transac_email(send_smtp_email)
-                except ApiException as e:
-                    print(f"Brevo email sending failed: {e}")
+                api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+                
+                subject = f"New Consultation Inquiry from {name} - Meraki Space Studio"
+                html_content = f"""
+                <h3>New Project Inquiry Received</h3>
+                <p><b>Name:</b> {name}</p>
+                <p><b>Email:</b> {email}</p>
+                <p><b>Phone:</b> {phone or 'N/A'}</p>
+                <p><b>Project Type:</b> {project_type or 'N/A'}</p>
+                <p><b>Message:</b><br>{message}</p>
+                """
+                
+                sender = {"name": "Meraki Space Studio", "email": "merakispacestudio@gmail.com"}
+                to = [{"email": "merakispacestudio@gmail.com", "name": "Studio Admin"}]
+                reply_to = {"email": email, "name": name}
+                
+                send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
+                    to=to,
+                    reply_to=reply_to,
+                    sender=sender,
+                    subject=subject,
+                    html_content=html_content
+                )
+
+                response = api_instance.send_transac_email(send_smtp_email)
+                print(f"Brevo API Success Response: {response}")
+                
+            except ApiException as e:
+                return HttpResponse(f"BREVO API EXCEPTION: {e.body or str(e)}", status=500)
+            except Exception as e:
+                return HttpResponse(f"PYTHON EXCEPTION: {str(e)}", status=500)
 
             messages.success(request, "Thank you for reaching out! We will contact you shortly.")
             return redirect('home')
