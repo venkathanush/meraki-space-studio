@@ -89,6 +89,15 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
 
+# Email Configuration for Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'merakispacestudio@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = 'Meraki Space Studio <merakispacestudio@gmail.com>'
+
 # Django Unfold Dark Theme Configuration
 UNFOLD = {
     "SITE_TITLE": "Meraki Space Studio Admin",
