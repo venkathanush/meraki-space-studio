@@ -11,12 +11,19 @@
     <link rel="shortcut icon" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png">
 
-    <!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="{% block og_title %}Meraki Space Studio | Luxury Minimalist Interior Architecture{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
+<!-- OpenGraph / Facebook / WhatsApp Social Sharing Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Meraki Space Studio">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{% block og_title %}Meraki Space Studio | Luxury Minimalist Interior Architecture{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Designing With Soul. Bespoke interior design and spatial architecture balancing aesthetic restraint with functional grandeur.{% endblock %}">
+
+<!-- High-Resolution Cover/Logo for WhatsApp Preview (1200x630) -->
+<meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
+<meta property="og:image:secure_url" content="{% block og_image_secure %}https://res.cloudinary.com/byjlhsas/image/upload/v1792165772/download.png{% endblock %}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
