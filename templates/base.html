@@ -219,6 +219,25 @@
         Chat With Us
     </span>
 </a>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Animate only once when scrolled into view
+            }
+        });
+    }, { 
+        threshold: 0.15 // Triggers when 15% of the element is visible
+    });
+
+    // Target any element with the 'reveal' class
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
 
 </body>
 </html>
