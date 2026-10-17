@@ -4,6 +4,7 @@ from django.conf import settings
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from .models import Service, Project, Inquiry, AboutSection, HeroSection, Testimonial
+import os
 
 def home(request):
     featured_projects = Project.objects.filter(is_featured=True)[:6]
