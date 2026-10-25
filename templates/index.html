@@ -4,64 +4,379 @@
 
 {% block content %}
 
-<!-- Custom CSS for Smooth Scrolling & Reveal Animations -->
+<!-- Custom CSS for Premium Animations & 3D Effects -->
 <style>
     html {
         scroll-behavior: smooth;
     }
+    
+    /* Reveal Animations */
     .reveal {
         opacity: 0;
-        transform: translateY(25px);
-        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(30px);
+        transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.active {
         opacity: 1;
         transform: translateY(0);
     }
+    
+    /* Staggered reveal delays */
+    .reveal-delay-1 { transition-delay: 100ms; }
+    .reveal-delay-2 { transition-delay: 200ms; }
+    .reveal-delay-3 { transition-delay: 300ms; }
+    .reveal-delay-4 { transition-delay: 400ms; }
+    .reveal-delay-5 { transition-delay: 500ms; }
+    
+    /* Hero Canvas Styles */
+    #hero-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
+    }
+    
+    #hero-fallback {
+        display: none;
+    }
+    
+    /* 3D Project Card Tilt Effect */
+    .project-card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    .project-card-3d .card-inner {
+        transform-style: preserve-3d;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card-3d:hover .card-inner {
+        transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+    }
+    
+    /* Magnetic Button Effect */
+    .magnetic-btn {
+        position: relative;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Text Reveal Animation */
+    .text-reveal {
+        overflow: hidden;
+    }
+    .text-reveal span {
+        display: inline-block;
+        transform: translateY(100%);
+        opacity: 0;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .text-reveal.active span {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    /* Scroll Progress Bar */
+    #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #C19A6B, #E8C58A);
+        z-index: 1000;
+        transform-origin: left;
+        transform: scaleX(0);
+        pointer-events: none;
+    }
+    
+    /* Custom Cursor */
+    .cursor {
+        position: fixed;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #C19A6B;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        transform: translate(-50%, -50%);
+    }
+    .cursor.cursor-hover {
+        width: 64px;
+        height: 64px;
+        border-color: transparent;
+        background: rgba(193, 154, 107, 0.15);
+    }
+    .cursor.cursor-click {
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    @media (pointer: coarse) {
+        .cursor { display: none; }
+    }
+    
+    /* Service Card 3D Hover */
+    .service-card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    .service-card-3d .card-content {
+        transform-style: preserve-3d;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Stats Counter Animation */
+    .stat-number {
+        transition: all 0.3s ease;
+    }
+    
+    /* Floating Label Input */
+    .floating-label {
+        position: relative;
+    }
+    .floating-label input,
+    .floating-label textarea,
+    .floating-label select {
+        width: 100%;
+        padding: 16px 12px 8px;
+        background: transparent;
+        border: 1px solid #D1D5DB;
+        border-radius: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        color: #1F2937;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .floating-label label {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        font-size: 14px;
+        color: #9CA3AF;
+        pointer-events: none;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 10px;
+        font-weight: 600;
+    }
+    .floating-label input:focus,
+    .floating-label textarea:focus,
+    .floating-label select:focus {
+        outline: none;
+        border-color: #C19A6B;
+        box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.15);
+    }
+    .floating-label input:not(:placeholder-shown) + label,
+    .floating-label textarea:not(:placeholder-shown) + label,
+    .floating-label select:not([value=""]) + label,
+    .floating-label.focused label {
+        top: -8px;
+        left: 8px;
+        font-size: 9px;
+        color: #C19A6B;
+        background: #FBF9F5;
+        padding: 0 4px;
+    }
+    .floating-label select option {
+        background: #FBF9F5;
+        color: #1F2937;
+    }
+    
+    /* FAQ Accordion */
+    .faq-item {
+        border: 1px solid #E5E7EB;
+        background: #F4EFEA;
+        overflow: hidden;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .faq-item:hover {
+        border-color: #C19A6B;
+        box-shadow: 0 4px 24px rgba(193, 154, 107, 0.08);
+    }
+    .faq-toggle {
+        width: 100%;
+        padding: 20px 24px;
+        text-align: left;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        color: #1F2937;
+        transition: color 0.3s ease;
+    }
+    .faq-toggle:hover {
+        color: #C19A6B;
+    }
+    .faq-toggle .icon {
+        color: #C19A6B;
+        font-size: 24px;
+        font-weight: 300;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item.active .faq-toggle .icon {
+        transform: rotate(45deg);
+    }
+    .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+    }
+    .faq-content p {
+        padding: 0 24px 20px;
+        color: #6B7280;
+        font-size: 14px;
+        line-height: 1.7;
+        font-weight: 300;
+    }
+    
+    /* Marquee / Ticker */
+    .marquee {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .marquee-content {
+        display: inline-flex;
+        animation: marquee 30s linear infinite;
+    }
+    .marquee:hover .marquee-content {
+        animation-play-state: paused;
+    }
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+        .reveal, .text-reveal span, .faq-content, .project-card-3d .card-inner, .service-card-3d .card-content {
+            transition: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+            max-height: none !important;
+        }
+        #hero-canvas { display: none; }
+        #hero-fallback { display: block; }
+        .marquee-content { animation: none; }
+        .cursor { display: none; }
+    }
+    
+    /* Focus Visible */
+    *:focus-visible {
+        outline: 2px solid #C19A6B;
+        outline-offset: 2px;
+    }
+    
+    /* Selection */
+    ::selection {
+        background: #C19A6B;
+        color: #000;
+    }
 </style>
 
-<!-- Hero Section -->
-<section class="relative min-h-[85vh] flex items-center justify-center bg-dark text-center px-6 overflow-hidden">
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor" aria-hidden="true"></div>
+
+<!-- ============================================
+     HERO SECTION - 3D Interactive Interior
+     ============================================ -->
+<section class="relative min-h-[90vh] flex items-center justify-center bg-dark text-center px-6 overflow-hidden" aria-label="Hero">
     
-    <!-- Hero Background Image -->
-    <div class="absolute inset-0 bg-cover bg-center opacity-90" 
-         style="background-image: url('{% if hero and hero.background_image %}{{ hero.background_image.url }}{% else %}https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000{% endif %}');">
+    <!-- 3D Canvas Container -->
+    <div class="absolute inset-0 z-0">
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        
+        <!-- Fallback Static Hero -->
+        <div id="hero-fallback" class="absolute inset-0 bg-cover bg-center" 
+             style="background-image: url('{% if hero and hero.background_image %}{{ hero.background_image.url }}{% else %}https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000{% endif %}');">
+            <div class="absolute inset-0 bg-black/45"></div>
+            <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-cream via-cream/80 to-transparent z-10 pointer-events-none"></div>
+        </div>
     </div>
 
-    <!-- Soft Dark Contrast Layer -->
-    <div class="absolute inset-0 bg-black/45"></div>
+    <!-- Atmospheric Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/40 z-5"></div>
 
-    <!-- Bottom Soft Cream Gradient -->
-    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cream via-cream/70 to-transparent z-10 pointer-events-none"></div>
+    <!-- Bottom Cream Gradient Blend -->
+    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-cream via-cream/80 to-transparent z-10 pointer-events-none"></div>
 
     <!-- Hero Content -->
-    <div class="relative z-20 max-w-4xl pt-16 pb-20 reveal">
-        <span class="text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-4 block drop-shadow-sm">
-            {{ hero.tagline|default:"Designing With Soul" }}
-        </span>
+    <div class="relative z-20 max-w-4xl pt-16 pb-20">
+        <div class="text-reveal reveal">
+            <span>{{ hero.tagline|default:"Designing With Soul" }}</span>
+        </div>
         
-        <h1 class="text-5xl md:text-7xl font-serif text-white leading-tight font-light mb-6 drop-shadow-md">
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-tight font-light mb-6 drop-shadow-md reveal reveal-delay-1">
             {{ hero.title|default:"Timeless Luxury & Minimalist Interior Architecture" }}
         </h1>
         
-        <p class="text-gray-200 text-base md:text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed drop-shadow-sm">
+        <p class="text-gray-200 text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed drop-shadow-sm reveal reveal-delay-2">
             {{ hero.subtitle|default:"We transform physical environments into emotive experiences, balancing aesthetic restraint with functional grandeur." }}
         </p>
         
-        <a href="#contact" class="bg-gold text-black font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-white hover:text-black transition duration-300 inline-block shadow-2xl">
+        <a href="#contact" class="magnetic-btn bg-gold text-black font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-white hover:text-black transition duration-300 inline-block shadow-2xl reveal reveal-delay-3">
             {{ hero.button_text|default:"Start Your Consultation" }}
         </a>
     </div>
 
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 reveal reveal-delay-4 animate-bounce">
+        <svg class="w-6 h-6 text-gold/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+    </div>
+
+    <!-- Mouse Interaction Hint -->
+    <div class="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 reveal reveal-delay-5">
+        <div class="flex items-center gap-2 text-gold/50 text-[10px] uppercase tracking-widest font-semibold">
+            <span>Drag to explore</span>
+            <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+            </svg>
+        </div>
+    </div>
+
 </section>
 
-<!-- About Us & Design Philosophy Section -->
-<section id="about" class="py-24 bg-cream border-b border-neutral-200/60">
-    <div class="max-w-7xl mx-auto px-6">
+<!-- ============================================
+     MARQUEE / TICKER - Studio Values
+     ============================================ -->
+<section class="bg-neutral-900 text-white py-6 overflow-hidden border-y border-neutral-800">
+    <div class="marquee">
+        <div class="marquee-content flex items-center gap-16 px-6">
+            {% for value in marquee_values %}
+            <span class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                <span class="w-2 h-2 rounded-full bg-gold"></span>
+                {{ value }}
+            </span>
+            {% endfor %}
+            {% for value in marquee_values %}
+            <span class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                <span class="w-2 h-2 rounded-full bg-gold"></span>
+                {{ value }}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     ABOUT / PHILOSOPHY SECTION
+     ============================================ -->
+<section id="about" class="py-24 lg:py-32 bg-cream border-b border-neutral-200/60 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative">
         
-        <div class="max-w-3xl mb-20 reveal">
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-20 lg:mb-28 reveal">
             <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-3">{{ about.subtitle|default:"Our Philosophy" }}</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-neutral-900 leading-tight">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif text-neutral-900 leading-tight">
                 {{ about.title|default:"Designing With Soul & Intentional Elegance" }}
             </h2>
             <p class="text-neutral-600 font-light text-base md:text-lg mt-6 leading-relaxed">
@@ -71,61 +386,68 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
+            <!-- Founder Image with 3D Frame -->
             <div class="lg:col-span-5 relative reveal">
-                <div class="aspect-[4/5] bg-cream-card border border-neutral-300/80 overflow-hidden relative group shadow-sm">
-                    {% if about and about.image %}
-                    <img src="{{ about.image.url }}" 
-                         alt="{{ about.founder_name }}" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    {% else %}
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1200" 
-                         alt="Lead Interior Designer" 
-                         class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition duration-700">
-                    {% endif %}
-                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6">
-                        <span class="text-gold text-[10px] uppercase tracking-widest block mb-1">{{ about.founder_title|default:"Founder & Principal Designer" }}</span>
-                        <h3 class="text-xl font-serif text-white">{{ about.founder_name|default:"Meraki Creative Team" }}</h3>
+                <div class="relative group">
+                    <!-- 3D Frame Effect -->
+                    <div class="absolute -inset-2 bg-gradient-to-br from-gold/30 via-transparent to-gold/30 rounded-[2px] blur opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"></div>
+                    
+                    <div class="aspect-[4/5] bg-cream-card border border-neutral-300/80 overflow-hidden relative group-hover:scale-[1.01] transition-transform duration-700">
+                        {% if about and about.image %}
+                        <img src="{{ about.image.url }}" 
+                             alt="{{ about.founder_name }}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1200" 
+                             alt="Lead Interior Designer" 
+                             class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-1000">
+                        {% endif %}
+                        
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Founder Info -->
+                        <div class="absolute bottom-6 left-6 right-6">
+                            <span class="text-gold text-[10px] uppercase tracking-widest block mb-1">{{ about.founder_title|default:"Founder & Principal Designer" }}</span>
+                            <h3 class="text-xl font-serif text-white">{{ about.founder_name|default:"Meraki Creative Team" }}</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Corner Accent -->
+                    <div class="hidden sm:block absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-gold/60 -z-10 transition-opacity duration-500 group-hover:opacity-50"></div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 bg-gold text-black text-[10px] uppercase tracking-widest font-semibold px-4 py-2 shadow-2xl rotate-3">
+                        Since 2018
                     </div>
                 </div>
-                <div class="hidden sm:block absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-gold/60 -z-10"></div>
             </div>
 
-            <div class="lg:col-span-7 space-y-10 lg:pl-6 reveal">
+            <!-- Philosophy Points & Stats -->
+            <div class="lg:col-span-7 space-y-10 lg:pl-6">
                 
-                <div class="border-l border-gold/60 pl-6 space-y-2">
-                    <h3 class="text-xl font-serif text-neutral-900">Bespoke Curation</h3>
-                    <p class="text-sm text-neutral-600 font-light leading-relaxed">
-                        We reject off-the-shelf concepts in favor of tailor-made architecture. Each residential, commercial, and turnkey project is built around custom joinery, hand-selected organic stones, and curated lighting hierarchies.
-                    </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal reveal-delay-1">
+                    {% for point in philosophy_points %}
+                    <div class="border-l border-gold/60 pl-6 space-y-2 hover:border-gold transition-colors duration-300 group">
+                        <h3 class="text-xl font-serif text-neutral-900 group-hover:text-gold transition-colors">{{ point.title }}</h3>
+                        <p class="text-sm text-neutral-600 font-light leading-relaxed">{{ point.description }}</p>
+                    </div>
+                    {% endfor %}
                 </div>
 
-                <div class="border-l border-gold/60 pl-6 space-y-2">
-                    <h3 class="text-xl font-serif text-neutral-900">Restrained Minimalism</h3>
-                    <p class="text-sm text-neutral-600 font-light leading-relaxed">
-                        Luxury is found in restraint. By eliminating noise and prioritizing spatial volume, soft textures, and natural daylight, we create environments that breathe tranquility and sophistication.
-                    </p>
-                </div>
-
-                <div class="border-l border-gold/60 pl-6 space-y-2">
-                    <h3 class="text-xl font-serif text-neutral-900">Seamless Turnkey Execution</h3>
-                    <p class="text-sm text-neutral-600 font-light leading-relaxed">
-                        From initial spatial planning and 3D visualization through site management and final styling, we deliver complete peace of mind with flawless execution standards.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-3 gap-6 pt-6 border-t border-neutral-300/60 text-center sm:text-left">
-                    <div>
-                        <span class="block font-serif text-3xl text-gold">50+</span>
+                <!-- Stats with Counter Animation -->
+                <div class="grid grid-cols-3 gap-6 pt-6 border-t border-neutral-300/60 text-center sm:text-left reveal reveal-delay-2">
+                    <div class="stat-item" data-target="50">
+                        <span class="block font-serif text-4xl md:text-5xl text-gold stat-number">0</span>
                         <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Spaces Crafted</span>
                     </div>
-                    <div>
-                        <span class="block font-serif text-3xl text-gold">100%</span>
+                    <div class="stat-item" data-target="100">
+                        <span class="block font-serif text-4xl md:text-5xl text-gold stat-number">0</span>
                         <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Bespoke Detail</span>
                     </div>
-                    <div>
-                        <span class="block font-serif text-3xl text-gold">Turnkey</span>
-                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Excellence</span>
+                    <div class="stat-item" data-target="100">
+                        <span class="block font-serif text-4xl md:text-5xl text-gold stat-number">0</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500 mt-1 block">Turnkey Excellence</span>
                     </div>
                 </div>
 
@@ -136,90 +458,174 @@
     </div>
 </section>
 
-<!-- Featured Projects Section -->
-<section class="py-24 max-w-7xl mx-auto px-6">
+<!-- ============================================
+     FEATURED PROJECTS - 3D Tilt Cards
+     ============================================ -->
+<section class="py-24 lg:py-32 max-w-7xl mx-auto px-6">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 reveal">
         <div>
             <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Selected Works</span>
-            <h2 class="text-3xl md:text-4xl font-serif text-neutral-900">Featured Portfolio</h2>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">Featured Portfolio</h2>
         </div>
-        <a href="{% url 'project_list' %}" class="mt-4 md:mt-0 text-xs uppercase tracking-widest text-gold hover:underline">Explore All Projects &rarr;</a>
+        <a href="{% url 'project_list' %}" class="mt-4 md:mt-0 text-xs uppercase tracking-widest text-gold hover:underline flex items-center gap-1 group">
+            Explore All Projects
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for project in featured_projects %}
-        <a href="{% url 'project_detail' project.slug %}" class="group block relative overflow-hidden bg-cream-card border border-neutral-300/80 shadow-sm reveal">
-            {% if project.featured_image %}
-            <div class="aspect-[4/5] overflow-hidden">
-                <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-            </div>
-            {% else %}
-            <div class="aspect-[4/5] bg-neutral-200 flex items-center justify-center text-neutral-500">No Image</div>
-            {% endif %}
-            <div class="p-6">
-                <span class="text-gold text-[10px] uppercase tracking-widest block mb-1">{{ project.get_category_display }}</span>
-                <h3 class="text-xl font-serif text-neutral-900 group-hover:text-gold transition">{{ project.title }}</h3>
-                <p class="text-xs text-neutral-500 mt-2">{{ project.location }}</p>
+        <a href="{% url 'project_detail' project.slug %}" class="project-card-3d group block reveal">
+            <div class="card-inner relative overflow-hidden bg-cream-card border border-neutral-300/80 shadow-sm hover:shadow-2xl transition-all duration-500">
+                {% if project.featured_image %}
+                <div class="aspect-[4/5] overflow-hidden relative">
+                    <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                    
+                    <!-- Category Badge -->
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-black/70 backdrop-blur text-white text-[10px] uppercase tracking-widest font-semibold px-3 py-1">
+                            {{ project.get_category_display }}
+                        </span>
+                    </div>
+                    
+                    <!-- Overlay on Hover -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <div class="w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span class="text-gold text-[10px] uppercase tracking-widest block mb-2">View Project</span>
+                            <h3 class="text-xl font-serif text-white">{{ project.title }}</h3>
+                            <p class="text-xs text-gray-300 mt-1">{{ project.location }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="aspect-[4/5] bg-neutral-200 flex items-center justify-center text-neutral-500">No Image</div>
+                {% endif %}
+                
+                <div class="p-6">
+                    <span class="text-gold text-[10px] uppercase tracking-widest block mb-1">{{ project.get_category_display }}</span>
+                    <h3 class="text-xl font-serif text-neutral-900 group-hover:text-gold transition-colors">{{ project.title }}</h3>
+                    <p class="text-xs text-neutral-500 mt-2">{{ project.location }}</p>
+                </div>
             </div>
         </a>
         {% empty %}
-        <div class="col-span-full text-center py-12 text-neutral-500 font-light">
+        <div class="col-span-full text-center py-12 text-neutral-500 font-light reveal">
             No featured projects yet. Add them in your admin panel!
         </div>
         {% endfor %}
     </div>
 </section>
 
-<!-- Services Section -->
-<section id="services" class="py-24 bg-cream-card border-y border-neutral-200/60">
-    <div class="max-w-7xl mx-auto px-6">
+<!-- ============================================
+     SERVICES - 3D Interactive Cards
+     ============================================ -->
+<section id="services" class="py-24 lg:py-32 bg-cream-card border-y border-neutral-200/60 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/3 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative">
         <div class="text-center max-w-2xl mx-auto mb-16 reveal">
             <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Our Expertise</span>
-            <h2 class="text-3xl md:text-4xl font-serif text-neutral-900">Interior Design Services</h2>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">Interior Design Services</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {% for service in services %}
-            <div class="bg-cream border border-neutral-300/80 hover:border-gold/60 transition duration-500 overflow-hidden group reveal shadow-sm">
-                {% if service.image %}
-                <div class="aspect-[16/10] overflow-hidden relative">
-                    <img src="{{ service.image.url }}" alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/60 via-transparent to-transparent opacity-80"></div>
-                </div>
-                {% endif %}
-                
-                <div class="p-8">
-                    <h3 class="text-xl font-serif text-neutral-900 mb-4 group-hover:text-gold transition">{{ service.title }}</h3>
-                    <p class="text-sm text-neutral-600 leading-relaxed mb-6 font-light">{{ service.short_description }}</p>
+            <div class="service-card-3d group reveal">
+                <div class="card-content relative overflow-hidden bg-cream border border-neutral-300/80 hover:border-gold/60 transition-all duration-500 shadow-sm hover:shadow-xl">
+                    {% if service.image %}
+                    <div class="aspect-[16/10] overflow-hidden relative">
+                        <img src="{{ service.image.url }}" alt="{{ service.title }}" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                        
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+                        
+                        <!-- Hover Action -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="bg-gold text-black text-xs uppercase tracking-widest font-semibold px-6 py-3 transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                Explore Service
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="p-8 relative z-10">
+                        <h3 class="text-xl font-serif text-neutral-900 mb-4 group-hover:text-gold transition-colors">{{ service.title }}</h3>
+                        <p class="text-sm text-neutral-600 leading-relaxed mb-6 font-light">{{ service.short_description }}</p>
+                        
+                        <!-- Arrow Link -->
+                        <div class="flex items-center gap-2 text-gold text-xs uppercase tracking-widest font-semibold group-hover:gap-3 transition-gap duration-300">
+                            <span>Learn More</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-full text-center py-8 text-neutral-500">No services added yet.</div>
+            <div class="col-span-full text-center py-8 text-neutral-500 reveal">No services added yet.</div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- Client Testimonials Section -->
-<section class="py-24 bg-cream border-b border-neutral-200/60">
-    <div class="max-w-7xl mx-auto px-6">
-        
+<!-- ============================================
+     PROCESS / METHODOLOGY SECTION
+     ============================================ -->
+<section class="py-24 lg:py-32 bg-cream border-b border-neutral-200/60 relative">
+    <div class="max-w-7xl mx-auto px-6 relative">
         <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-            <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-3">Client Reflections</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-neutral-900">Words of Appreciation</h2>
+            <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-3">Our Process</span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">From Vision to Reality</h2>
         </div>
 
-        {% if testimonials %}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for review in testimonials %}
-            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between hover:border-gold/60 transition duration-500 reveal shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for step in process_steps %}
+            <div class="relative reveal">
+                <!-- Step Number -->
+                <div class="absolute -top-4 left-0 w-12 h-12 bg-gold text-black flex items-center justify-center font-serif text-2xl font-bold">
+                    {{ step.number }}
+                </div>
+                
+                <!-- Connecting Line (hidden on last) -->
+                {% if not forloop.last %}
+                <div class="absolute top-2 left-[60px] w-full h-0.5 bg-gradient-to-r from-gold/30 to-transparent -z-10 hidden lg:block"></div>
+                {% endif %}
+                
+                <div class="pl-16 pt-4 space-y-4">
+                    <h3 class="text-xl font-serif text-neutral-900">{{ step.title }}</h3>
+                    <p class="text-sm text-neutral-600 font-light leading-relaxed">{{ step.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     TESTIMONIALS - Carousel Style
+     ============================================ -->
+<section class="py-24 lg:py-32 bg-cream-card border-y border-neutral-200/60 relative">
+    <div class="max-w-7xl mx-auto px-6 relative">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-3">Client Reflections</span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">Words of Appreciation</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonials-grid">
+            {% for review in testimonials|default:default_testimonials %}
+            <div class="bg-cream border border-neutral-300/80 p-8 hover:border-gold/60 hover:shadow-xl transition-all duration-500 reveal group">
                 <div class="space-y-4">
-                    <div class="flex text-gold text-sm space-x-1">
+                    <div class="flex text-gold text-sm space-x-0.5">
                         {% for i in "12345"|make_list %}
                         <span>★</span>
                         {% endfor %}
                     </div>
-                    <p class="text-neutral-700 font-light text-sm md:text-base leading-relaxed italic">
+                    <p class="text-neutral-700 font-light text-sm md:text-base leading-relaxed italic relative z-10">
                         "{{ review.quote }}"
                     </p>
                 </div>
@@ -228,205 +634,450 @@
                     <h3 class="text-neutral-900 font-serif text-base font-medium">{{ review.client_name }}</h3>
                     <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">{{ review.role_or_location }}</span>
                 </div>
+                
+                <!-- Quote Mark Decoration -->
+                <svg class="absolute top-8 right-8 w-16 h-16 text-gold/10 group-hover:text-gold/20 transition-colors duration-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.431.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.432.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                </svg>
             </div>
             {% endfor %}
         </div>
-        {% else %}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between reveal shadow-sm">
-                <div class="space-y-4">
-                    <div class="flex text-gold text-sm space-x-1">★★★★★</div>
-                    <p class="text-neutral-700 font-light text-sm leading-relaxed italic">
-                        "Meraki Space Studio transformed our villa into a sanctuary of understated elegance. Their attention to lighting and tactile materials is unmatched."
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-neutral-300/50">
-                    <h3 class="text-neutral-900 font-serif text-base">Ananya & Vikram</h3>
-                    <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">Private Villa, Jubilee Hills</span>
-                </div>
-            </div>
-
-            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between reveal shadow-sm">
-                <div class="space-y-4">
-                    <div class="flex text-gold text-sm space-x-1">★★★★★</div>
-                    <p class="text-neutral-700 font-light text-sm leading-relaxed italic">
-                        "Flawless turnkey execution. They respected our timelines completely while delivering an interior that feels like a boutique gallery."
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-neutral-300/50">
-                    <h3 class="text-neutral-900 font-serif text-base">Rohan Mehta</h3>
-                    <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">Penthouse Residence</span>
-                </div>
-            </div>
-
-            <div class="bg-cream-card border border-neutral-300/80 p-8 flex flex-col justify-between reveal shadow-sm">
-                <div class="space-y-4">
-                    <div class="flex text-gold text-sm space-x-1">★★★★★</div>
-                    <p class="text-neutral-700 font-light text-sm leading-relaxed italic">
-                        "The spatial harmony they achieved in our studio office space elevated our entire brand identity. Highly recommended."
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-neutral-300/50">
-                    <h3 class="text-neutral-900 font-serif text-base">Siddharth Rao</h3>
-                    <span class="text-gold text-xs tracking-wider uppercase block mt-0.5">Commercial Space</span>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
     </div>
 </section>
 
-<!-- FAQ Accordion Section -->
-<section class="py-24 max-w-4xl mx-auto px-6 border-b border-neutral-200/60">
+<!-- ============================================
+     CTA SECTION - Immersive
+     ============================================ -->
+<section class="py-24 lg:py-32 relative overflow-hidden" style="background: #0a0a0a;">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-10" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-neutral-950/95 via-neutral-900/90 to-neutral-950/95" aria-hidden="true"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-3xl" aria-hidden="true"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
+        <span class="text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-4 block">Ready to Begin</span>
+        <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-tight font-light mb-6">
+            Let's Craft Your<br><span class="text-gold">Signature Space</span>
+        </h2>
+        <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+            Every remarkable interior begins with a conversation. Share your vision, and let us translate it into a living masterpiece.
+        </p>
+        <a href="#contact" class="magnetic-btn bg-gold text-black font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-white hover:text-black transition duration-300 inline-block shadow-2xl">
+            Book Your Consultation
+        </a>
+    </div>
+</section>
+
+<!-- ============================================
+     FAQ ACCORDION
+     ============================================ -->
+<section class="py-24 lg:py-32 max-w-4xl mx-auto px-6 border-b border-neutral-200/60">
     <div class="text-center mb-16 reveal">
         <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Common Inquiries</span>
         <h2 class="text-3xl md:text-5xl font-serif text-neutral-900">Frequently Asked Questions</h2>
     </div>
 
-    <div class="space-y-4">
-        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
-            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">What is your typical project timeline?</span>
-                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
+    <div class="space-y-4" id="faq-accordion">
+        {% for item in faq_items %}
+        <div class="faq-item reveal">
+            <button class="faq-toggle" aria-expanded="false">
+                <span class="font-serif text-lg">{{ item.0 }}</span>
+                <span class="icon">+</span>
             </button>
-            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
-                    Project timelines vary depending on scope and scale. A typical residential interior architecture or turnkey curation project ranges from 12 to 24 weeks from initial spatial planning through final styling and handover.
-                </p>
+            <div class="faq-content">
+                <p>{{ item.1 }}</p>
             </div>
         </div>
-
-        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
-            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">Do you handle complete turnkey execution?</span>
-                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
-            </button>
-            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
-                    Yes. We provide complete end-to-end turnkey execution, managing everything from 3D visualization, custom joinery fabrication, and procurement to site supervision and final accessory styling.
-                </p>
-            </div>
-        </div>
-
-        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
-            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">What regions or locations do you service?</span>
-                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
-            </button>
-            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
-                    While our primary studio is based in Jubilee Hills, Hyderabad, we undertake select residential and commercial architectural design projects across India and offer virtual design consulting worldwide.
-                </p>
-            </div>
-        </div>
-
-        <div class="border border-neutral-300/80 bg-cream-card reveal overflow-hidden transition-all duration-300 shadow-sm">
-            <button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group">
-                <span class="text-neutral-900 font-serif text-lg group-hover:text-gold transition">How do we initiate a project with Meraki Space Studio?</span>
-                <span class="text-gold text-xl font-light transform transition-transform duration-300 icon-symbol">+</span>
-            </button>
-            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6">
-                <p class="text-neutral-600 font-light text-sm pb-6 leading-relaxed">
-                    You can begin by submitting your project details through our consultation form below or reaching out directly via WhatsApp. Our principal team will review your inquiry and schedule an initial discovery call.
-                </p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 
-<!-- Consultation Inquiry Form -->
-<section id="contact" class="py-24 max-w-4xl mx-auto px-6">
-    <div class="text-center mb-12 reveal">
-        <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Begin Your Journey</span>
-        <h2 class="text-3xl md:text-4xl font-serif text-neutral-900">Book an Interior Design Consultation</h2>
-    </div>
-
-    <form method="POST" class="space-y-6 bg-cream-card p-8 md:p-12 border border-neutral-300/80 shadow-sm reveal">
-        {% csrf_token %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Full Name *</label>
-                <input type="text" name="name" required class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
-            </div>
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Email Address *</label>
-                <input type="email" name="email" required class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
-            </div>
+<!-- ============================================
+     CONSULTATION FORM - Premium
+     ============================================ -->
+<section id="contact" class="py-24 lg:py-32 max-w-4xl mx-auto px-6 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/3 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
+    
+    <div class="relative z-10">
+        <div class="text-center mb-12 reveal">
+            <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">Begin Your Journey</span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">Book an Interior Design Consultation</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Phone Number</label>
-                <input type="text" name="phone" class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
-            </div>
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Project Category</label>
-                <select name="project_type" class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm">
-                    <option value="residential">Residential Interiors</option>
-                    <option value="commercial">Commercial Interiors</option>
-                    <option value="hospitality">Hospitality Projects</option>
-                    <option value="turnkey">Turnkey Projects</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <label class="block text-xs uppercase tracking-widest text-neutral-600 mb-2">Tell Us About Your Space *</label>
-            <textarea name="message" rows="5" required class="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-gold text-sm"></textarea>
-        </div>
-
-        <button type="submit" class="w-full bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs py-4 hover:bg-gold hover:text-black transition duration-300 shadow-md">
-            Submit Inquiry
-        </button>
-    </form>
-</section>
-
-<!-- Scroll Reveal Script -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => {
-        observer.observe(el);
-    });
-});
-</script>
-
-<!-- FAQ Accordion Script -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const faqToggles = document.querySelectorAll('.faq-toggle');
-
-    faqToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const content = this.nextElementSibling;
-            const symbol = this.querySelector('.icon-symbol');
+        <form method="POST" class="space-y-6 bg-cream-card p-8 md:p-12 border border-neutral-300/80 shadow-sm reveal" novalidate>
+            {% csrf_token %}
             
-            faqToggles.forEach(otherToggle => {
-                if (otherToggle !== this) {
-                    otherToggle.nextElementSibling.style.maxHeight = null;
-                    otherToggle.querySelector('.icon-symbol').textContent = '+';
-                }
-            });
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="floating-label">
+                    <input type="text" name="name" id="name" required placeholder=" ">
+                    <label for="name">Full Name *</label>
+                </div>
+                <div class="floating-label">
+                    <input type="email" name="email" id="email" required placeholder=" ">
+                    <label for="email">Email Address *</label>
+                </div>
+            </div>
 
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                symbol.textContent = '+';
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                symbol.textContent = '-';
-            }
-        });
-    });
-});
-</script>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="floating-label">
+                    <input type="tel" name="phone" id="phone" placeholder=" ">
+                    <label for="phone">Phone Number</label>
+                </div>
+                <div class="floating-label">
+                    <select name="project_type" id="project_type">
+                        <option value="">Select Project Type</option>
+                        <option value="residential">Residential Interiors</option>
+                        <option value="commercial">Commercial Interiors</option>
+                        <option value="hospitality">Hospitality Projects</option>
+                        <option value="turnkey">Turnkey Projects</option>
+                    </select>
+                    <label for="project_type">Project Category</label>
+                </div>
+            </div>
+
+            <div class="floating-label">
+                <textarea name="message" id="message" rows="5" required placeholder=" "></textarea>
+                <label for="message">Tell Us About Your Space *</label>
+            </div>
+
+            <button type="submit" class="magnetic-btn w-full bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs py-4 hover:bg-gold hover:text-black transition duration-300 shadow-md group">
+                Submit Inquiry
+                <svg class="w-4 h-4 inline-block ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
+            </button>
+        </form>
+        
+        <!-- Contact Info -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 reveal">
+            <div class="text-center p-6 border border-neutral-300/80 hover:border-gold/60 transition-colors">
+                <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-gold/10 text-gold rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3 class="font-serif text-lg text-neutral-900 mb-2">Email Us</h3>
+                <a href="mailto:merakispacestudio@gmail.com" class="text-neutral-600 font-light hover:text-gold transition">merakispacestudio@gmail.com</a>
+            </div>
+            <div class="text-center p-6 border border-neutral-300/80 hover:border-gold/60 transition-colors">
+                <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-gold/10 text-gold rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                </div>
+                <h3 class="font-serif text-lg text-neutral-900 mb-2">Call Us</h3>
+                <a href="tel:+917675072525" class="text-neutral-600 font-light hover:text-gold transition">+91 76750 72525</a>
+            </div>
+            <div class="text-center p-6 border border-neutral-300/80 hover:border-gold/60 transition-colors">
+                <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-gold/10 text-gold rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3 class="font-serif text-lg text-neutral-900 mb-2">Visit Studio</h3>
+                <address class="text-neutral-600 font-light not-italic hover:text-gold transition">Jubilee Hills, Hyderabad, India</address>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     FOOTER NOTE
+     ============================================ -->
+<div class="py-8 bg-cream border-t border-neutral-200/60 text-center text-[11px] text-neutral-500 font-light uppercase tracking-widest">
+    Crafted with intention for Meraki Space Studio
+</div>
 
 {% endblock %}
+
+<!-- ============================================
+     CUSTOM JAVASCRIPT - Premium Interactions
+     ============================================ -->
+<script>
+// ============================================
+// Scroll Progress Bar
+// ============================================
+const scrollProgress = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollTop / docHeight;
+    scrollProgress.style.transform = `scaleX(${progress})`;
+}, { passive: true });
+
+// ============================================
+// Intersection Observer for Reveal Animations
+// ============================================
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => {
+    revealObserver.observe(el);
+});
+
+// ============================================
+// Text Reveal Animation
+// ============================================
+const textRevealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            textRevealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.text-reveal').forEach(el => {
+    // Wrap each word in span for staggered animation
+    const text = el.textContent.trim();
+    el.innerHTML = text.split(' ').map((word, i) => 
+        `<span style="transition-delay: ${i * 50}ms">${word}</span>`
+    ).join(' ');
+    textRevealObserver.observe(el);
+});
+
+// ============================================
+// Counter Animation for Stats
+// ============================================
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = parseInt(entry.target.dataset.target);
+            const element = entry.target.querySelector('.stat-number');
+            animateCounter(element, target);
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+function animateCounter(element, target) {
+    const duration = 2000;
+    const start = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+        const current = Math.floor(target * eased);
+        
+        if (target === 100) {
+            element.textContent = current + '%';
+        } else {
+            element.textContent = current + '+';
+        }
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    requestAnimationFrame(update);
+}
+
+document.querySelectorAll('.stat-item').forEach(el => {
+    counterObserver.observe(el);
+});
+
+// ============================================
+// Custom Cursor
+// ============================================
+const cursor = document.querySelector('.cursor');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.2;
+    cursorY += (mouseY - cursorY) * 0.2;
+    cursor.style.transform = `translate(${cursorX - 16}px, ${cursorY - 16}px)`;
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover elements that trigger cursor expansion
+const hoverElements = document.querySelectorAll('a, button, .project-card-3d, .service-card-3d, .faq-toggle, .stat-item');
+hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    el.addEventListener('mousedown', () => cursor.classList.add('cursor-click'));
+    el.addEventListener('mouseup', () => cursor.classList.remove('cursor-click'));
+});
+
+// ============================================
+// 3D Tilt Effect for Project Cards
+// ============================================
+document.querySelectorAll('.project-card-3d').forEach(card => {
+    const inner = card.querySelector('.card-inner');
+    
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        
+        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        inner.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+});
+
+// ============================================
+// 3D Tilt Effect for Service Cards
+// ============================================
+document.querySelectorAll('.service-card-3d').forEach(card => {
+    const content = card.querySelector('.card-content');
+    
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 30;
+        const rotateY = (centerX - x) / 30;
+        
+        content.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        content.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0)';
+    });
+});
+
+// ============================================
+// FAQ Accordion
+// ============================================
+document.querySelectorAll('.faq-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function() {
+        const item = this.closest('.faq-item');
+        const content = item.querySelector('.faq-content');
+        const isActive = item.classList.contains('active');
+        
+        // Close all others
+        document.querySelectorAll('.faq-item').forEach(other => {
+            if (other !== item) {
+                other.classList.remove('active');
+                other.querySelector('.faq-content').style.maxHeight = null;
+            }
+        });
+        
+        // Toggle current
+        if (isActive) {
+            item.classList.remove('active');
+            content.style.maxHeight = null;
+        } else {
+            item.classList.add('active');
+            content.style.maxHeight = content.scrollHeight + 'px';
+        }
+    });
+});
+
+// ============================================
+// Floating Labels
+// ============================================
+document.querySelectorAll('.floating-label input, .floating-label textarea, .floating-label select').forEach(input => {
+    // Check initial state
+    if (input.value || input.tagName === 'SELECT' && input.value) {
+        input.closest('.floating-label').classList.add('focused');
+    }
+    
+    input.addEventListener('focus', () => {
+        input.closest('.floating-label').classList.add('focused');
+    });
+    
+    input.addEventListener('blur', () => {
+        if (!input.value) {
+            input.closest('.floating-label').classList.remove('focused');
+        }
+    });
+    
+    input.addEventListener('change', () => {
+        if (input.value) {
+            input.closest('.floating-label').classList.add('focused');
+        }
+    });
+});
+
+// ============================================
+// Magnetic Buttons
+// ============================================
+document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+    });
+});
+
+// ============================================
+// Form Submission Enhancement
+// ============================================
+document.querySelector('form[method="POST"]').addEventListener('submit', function(e) {
+    const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    
+    btn.innerHTML = '<span class="flex items-center justify-center gap-2"><svg class="animate-spin w-5 h-5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Submitting...</span>';
+    btn.disabled = true;
+    
+    // Re-enable after 5s if no redirect (fallback)
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }, 5000);
+});
+
+// ============================================
+// Smooth Scroll for Anchor Links
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const target = document.querySelector(targetId);
+        if (target) {
+            e.preventDefault();
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// ============================================
+// Parallax on Scroll for Hero Content
+// ============================================
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const heroContent = document.querySelector('section[aria-label="Hero"] .relative.z-20');
+    if (heroContent && scrolled < window.innerHeight) {
+        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+        heroContent.style.opacity = 1 - scrolled / (window.innerHeight * 0.8);
+    }
+}, { passive: true });
+
+</script>

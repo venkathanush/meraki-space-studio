@@ -11,14 +11,21 @@
 {% block content %}
 <article class="pt-32 pb-24 max-w-5xl mx-auto px-6">
     <!-- Back Button -->
-    <a href="{% url 'project_list' %}" class="inline-block text-xs uppercase tracking-widest text-gold mb-8 hover:underline font-medium">&larr; Back to Portfolio</a>
+    <a href="{% url 'project_list' %}" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gold mb-8 hover:underline font-medium group reveal">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Portfolio
+    </a>
     
     <!-- Category & Title -->
-    <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">{{ project.get_category_display }}</span>
-    <h1 class="text-4xl md:text-6xl font-serif text-neutral-900 font-light mb-8">{{ project.title }}</h1>
+    <div class="reveal">
+        <span class="text-gold text-xs uppercase tracking-widest font-semibold block mb-2">{{ project.get_category_display }}</span>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-neutral-900 font-light mb-8">{{ project.title }}</h1>
+    </div>
 
-    <!-- Metadata Grid (High Contrast for Cream Theme) -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-neutral-300/80 mb-12 text-xs uppercase tracking-widest">
+    <!-- Metadata Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-neutral-300/80 mb-12 text-xs uppercase tracking-widest reveal">
         <div>
             <span class="text-neutral-500 block">Location</span>
             <span class="text-neutral-900 font-semibold mt-1 block">{{ project.location }}</span>
@@ -39,19 +46,19 @@
 
     <!-- Featured Main Cover Image -->
     {% if project.featured_image %}
-    <div class="aspect-video w-full mb-12 overflow-hidden border border-neutral-300/80 shadow-sm">
+    <div class="aspect-video w-full mb-16 overflow-hidden border border-neutral-300/80 shadow-xl reveal">
         <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
     </div>
     {% endif %}
 
     <!-- Project Description -->
-    <div class="prose max-w-none text-neutral-700 leading-relaxed font-light text-base md:text-lg mb-16">
+    <div class="prose max-w-none text-neutral-700 leading-relaxed font-light text-base md:text-lg mb-16 reveal">
         {{ project.description|linebreaks }}
     </div>
 
     <!-- Multi-Image Portfolio Gallery with Lightbox Slide/Zoom -->
     {% if project.images.all %}
-    <div class="mt-16 pt-12 border-t border-neutral-300/80">
+    <div class="mt-16 pt-12 border-t border-neutral-300/80 reveal">
         <span class="text-gold text-xs uppercase tracking-[0.2em] font-semibold block mb-2">Visual Showcase</span>
         <h2 class="text-2xl md:text-3xl font-serif text-neutral-900 mb-8">Project Gallery</h2>
         
@@ -62,10 +69,10 @@
                    data-pswp-width="{{ item.image.width|default:1600 }}" 
                    data-pswp-height="{{ item.image.height|default:1200 }}" 
                    target="_blank"
-                   class="block overflow-hidden border border-neutral-300/80 aspect-[4/3] bg-cream-card relative cursor-zoom-in shadow-sm">
+                   class="block overflow-hidden border border-neutral-300/80 aspect-[4/3] bg-cream-card relative cursor-zoom-in shadow-sm hover:shadow-xl hover:border-gold/60 transition-all duration-500">
                     <img src="{{ item.image.url }}" 
                          alt="{{ item.caption|default:project.title }}" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                         <span class="text-xs uppercase tracking-widest text-white bg-neutral-900/80 px-4 py-2 border border-white/20">Click to View Fullscreen</span>
                     </div>
@@ -78,6 +85,14 @@
         </div>
     </div>
     {% endif %}
+    
+    <!-- Related Projects CTA -->
+    <div class="mt-24 pt-12 border-t border-neutral-300/80 text-center reveal">
+        <h3 class="text-2xl font-serif text-neutral-900 mb-4">Explore More Projects</h3>
+        <a href="{% url 'project_list' %}" class="magnetic-btn inline-block bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-gold hover:text-black transition duration-300 shadow-md">
+            View All Portfolio
+        </a>
+    </div>
 
 </article>
 {% endblock %}

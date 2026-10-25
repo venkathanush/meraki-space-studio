@@ -14,6 +14,44 @@ def home(request):
     hero_data = HeroSection.objects.first()
     testimonials = Testimonial.objects.filter(is_featured=True)[:3]
     
+    # Philosophy points for About section
+    philosophy_points = [
+        {
+            'title': 'Bespoke Curation',
+            'description': 'We reject off-the-shelf concepts in favor of tailor-made architecture. Each project is built around custom joinery, hand-selected organic stones, and curated lighting hierarchies.'
+        },
+        {
+            'title': 'Restrained Minimalism',
+            'description': 'Luxury is found in restraint. By eliminating noise and prioritizing spatial volume, soft textures, and natural daylight, we create environments that breathe tranquility and sophistication.'
+        },
+        {
+            'title': 'Seamless Turnkey Execution',
+            'description': 'From initial spatial planning and 3D visualization through site management and final styling, we deliver complete peace of mind with flawless execution standards.'
+        }
+    ]
+    
+    # Process steps
+    process_steps = [
+        {'number': '01', 'title': 'Discovery & Brief', 'description': 'Deep understanding of your lifestyle, aspirations, and spatial needs through immersive consultation sessions.'},
+        {'number': '02', 'title': 'Concept & Visualization', 'description': 'Spatial storytelling through hand sketches, mood boards, and photorealistic 3D renderings for your approval.'},
+        {'number': '03', 'title': 'Technical & Procurement', 'description': 'Detailed technical drawings, material specifications, and curated procurement of global artisanal pieces.'},
+        {'number': '04', 'title': 'Execution & Styling', 'description': 'Meticulous site management, custom fabrication oversight, and final accessory styling for turnkey delivery.'}
+    ]
+    
+    # Default testimonials for when none exist in database
+    default_testimonials = [
+        {'client_name': 'Ananya & Vikram', 'role_or_location': 'Private Villa, Jubilee Hills', 'quote': 'Meraki Space Studio transformed our villa into a sanctuary of understated elegance. Their attention to lighting and tactile materials is unmatched.'},
+        {'client_name': 'Rohan Mehta', 'role_or_location': 'Penthouse Residence', 'quote': 'Flawless turnkey execution. They respected our timelines completely while delivering an interior that feels like a boutique gallery.'},
+        {'client_name': 'Siddharth Rao', 'role_or_location': 'Commercial Space', 'quote': 'The spatial harmony they achieved in our studio office space elevated our entire brand identity. Highly recommended.'},
+    ]
+    
+    # Marquee values
+    marquee_values = [
+        'Bespoke Curation', 'Restrained Minimalism', 'Seamless Turnkey Execution', 
+        'Artisanal Craftsmanship', 'Spatial Poetry', 'Timeless Materiality', 
+        'Luminous Atmospheres', 'Curated Living'
+    ]
+    
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -82,6 +120,18 @@ def home(request):
         'about': about_data,
         'hero': hero_data,
         'testimonials': testimonials,
+        'philosophy_points': philosophy_points,
+        'process_steps': process_steps,
+        'marquee_values': marquee_values,
+        'default_testimonials': default_testimonials,
+        'faq_items': [
+            ('What is your typical project timeline?', 'Project timelines vary depending on scope and scale. A typical residential interior architecture or turnkey curation project ranges from 12 to 24 weeks from initial spatial planning through final styling and handover.'),
+            ('Do you handle complete turnkey execution?', 'Yes. We provide complete end-to-end turnkey execution, managing everything from 3D visualization, custom joinery fabrication, and procurement to site supervision and final accessory styling.'),
+            ('What regions or locations do you service?', 'While our primary studio is based in Jubilee Hills, Hyderabad, we undertake select residential and commercial architectural design projects across India and offer virtual design consulting worldwide.'),
+            ('How do we initiate a project with Meraki Space Studio?', 'You can begin by submitting your project details through our consultation form below or reaching out directly via WhatsApp. Our principal team will review your inquiry and schedule an initial discovery call.'),
+            ('What is your design fee structure?', 'Our fees are project-specific, typically structured as a percentage of the total project budget or a fixed fee based on scope. We provide transparent fee proposals after the initial discovery phase.'),
+            ('Can you work with existing furniture or art?', 'Absolutely. We specialize in integrating cherished pieces into new spatial narratives, creating harmonious dialogues between old and new.'),
+        ],
     }
     return render(request, 'index.html', context)
 
