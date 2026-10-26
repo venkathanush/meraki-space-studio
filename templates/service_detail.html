@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.title }} | Meraki Space Studio{% endblock %}
+
+{% block og_title %}{{ service.title }} - Meraki Space Studio{% endblock %}
+{% block og_description %}{{ service.description|truncatewords:25 }}{% endblock %}
+{% if service.image %}
+    {% block og_image %}{{ service.image.url }}{% endblock %}
+{% endif %}
+
+{% block content %}
+<article class="pt-32 pb-24 max-w-5xl mx-auto px-6">
+    <!-- Back Button -->
+    <a href="{% url 'home' %}#services" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gold mb-8 hover:underline font-medium group reveal">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Services
+    </a>
+    
+    <!-- Service Header -->
+    <div class="reveal">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-neutral-900 font-light mb-6">{{ service.title }}</h1>
+    </div>
+
+    <!-- Featured Image -->
+    {% if service.image %}
+    <div class="aspect-[16/10] w-full mb-16 overflow-hidden border border-neutral-300/80 shadow-xl reveal">
+        <img src="{{ service.image.url }}" alt="{{ service.title }}" class="w-full h-full object-cover">
+    </div>
+    {% endif %}
+
+    <!-- Service Description -->
+    <div class="prose max-w-none text-neutral-700 leading-relaxed font-light text-base md:text-lg mb-16 reveal">
+        {{ service.description|linebreaks }}
+    </div>
+
+    <!-- Related Services -->
+    {% if other_services %}
+    <div class="mt-16 pt-12 border-t border-neutral-300/80 reveal">
+        <span class="text-gold text-xs uppercase tracking-[0.2em] font-semibold block mb-2">Other Services</span>
+        <h2 class="text-2xl md:text-3xl font-serif text-neutral-900 mb-8">Explore More</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for other in other_services %}
+            <a href="{% url 'service_detail' other.slug %}" class="service-card-3d group block">
+                <div class="card-content relative overflow-hidden bg-cream border border-neutral-300/80 hover:border-gold/60 transition-all duration-500 shadow-sm hover:shadow-xl">
+                    {% if other.image %}
+                    <div class="aspect-[16/10] overflow-hidden relative">
+                        <img src="{{ other.image.url }}" alt="{{ other.title }}" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                        
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+                        
+                        <!-- Hover Action -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="bg-gold text-black text-xs uppercase tracking-widest font-semibold px-6 py-3 transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                View Service
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="p-8 relative z-10">
+                        <h3 class="text-xl font-serif text-neutral-900 mb-4 group-hover:text-gold transition-colors">{{ other.title }}</h3>
+                        <p class="text-sm text-neutral-600 leading-relaxed mb-6 font-light">{{ other.short_description }}</p>
+                        
+                        <!-- Arrow Link -->
+                        <div class="flex items-center gap-2 text-gold text-xs uppercase tracking-widest font-semibold group-hover:gap-3 transition-gap duration-300">
+                            <span>Learn More</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- CTA -->
+    <div class="mt-24 pt-12 border-t border-neutral-300/80 text-center reveal">
+        <h3 class="text-2xl font-serif text-neutral-900 mb-4">Ready to Discuss Your Project?</h3>
+        <p class="text-neutral-600 font-light max-w-xl mx-auto mb-8">Let us help you bring your vision to life with our expert design services.</p>
+        <a href="{% url 'home' %}#contact" class="magnetic-btn inline-block bg-neutral-900 text-white font-semibold uppercase tracking-widest text-xs px-8 py-4 hover:bg-gold hover:text-black transition duration-300 shadow-md">
+            Book a Consultation
+        </a>
+    </div>
+</article>
+{% endblock %}

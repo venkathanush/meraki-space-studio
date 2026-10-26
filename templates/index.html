@@ -533,7 +533,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {% for service in services %}
-            <div class="service-card-3d group reveal">
+            <a href="{% url 'service_detail' service.slug %}" class="service-card-3d group reveal block">
                 <div class="card-content relative overflow-hidden bg-cream border border-neutral-300/80 hover:border-gold/60 transition-all duration-500 shadow-sm hover:shadow-xl">
                     {% if service.image %}
                     <div class="aspect-[16/10] overflow-hidden relative">
@@ -565,7 +565,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% empty %}
             <div class="col-span-full text-center py-8 text-neutral-500 reveal">No services added yet.</div>
             {% endfor %}

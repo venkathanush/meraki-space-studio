@@ -158,3 +158,13 @@ def project_detail(request, slug):
         'related_projects': related_projects,
     }
     return render(request, 'project_detail.html', context)
+
+def service_detail(request, slug):
+    service = get_object_or_404(Service, slug=slug)
+    other_services = Service.objects.exclude(id=service.id)[:3]
+    
+    context = {
+        'service': service,
+        'other_services': other_services,
+    }
+    return render(request, 'service_detail.html', context)
